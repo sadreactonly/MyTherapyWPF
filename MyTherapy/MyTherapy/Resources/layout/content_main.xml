@@ -1,0 +1,55 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main">
+     <LinearLayout  
+        android:id="@+id/todayTherapyLayout"
+        android:layout_marginTop="@dimen/abc_dropdownitem_text_padding_left"
+        android:layout_width="match_parent"  
+        android:layout_height="wrap_content"  
+        android:orientation="horizontal">  
+        <TextView
+            android:text="Todays therapy:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"
+            android:layout_weight="1"/>
+        <TextView
+            android:text="0.5"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"   
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <TextView
+        android:text="All therapies:"
+        android:layout_below="@id/todayTherapyLayout"
+        android:layout_marginTop="@dimen/abc_dropdownitem_text_padding_left"
+        android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3" />
+    <Button
+        android:text="Button"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_below="@id/todayTherapyLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1" />
+
+    <ListView 
+        android:id="@+id/mainlistview" 
+        android:layout_below="@id/textView3"
+        android:layout_height="match_parent" 
+        android:layout_width="match_parent">
+    </ListView>  
+
+</RelativeLayout>
