@@ -64,6 +64,8 @@ namespace MyTherapyWPF {
 
                     // Start an asynchronous socket to listen for connections.  
                     Console.WriteLine("Waiting for a connection...");
+                    MessageBox.Show("Waiting for a connection...");
+
                     listener.BeginAccept(
                         new AsyncCallback(AcceptCallback),
                         listener);
@@ -80,7 +82,6 @@ namespace MyTherapyWPF {
                 Console.WriteLine(e.ToString());
             }
 
-            MessageBox.Show("Connected");
 
         }
 

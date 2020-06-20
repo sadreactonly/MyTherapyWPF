@@ -9,6 +9,7 @@ namespace MyTherapyWPF.Common
 	{
 		private double dose;
 		private DateTime date;
+		private bool isTaken = false;
 
 		[JsonProperty(PropertyName = "id")]
 		public int Id { get; set; }
@@ -39,6 +40,19 @@ namespace MyTherapyWPF.Common
 				date = value;
 				OnPropertyChanged("Date");
 			} 
+		}
+		/// <summary>
+		/// Gets or sets info is therapy taken.
+		/// </summary>
+		[JsonProperty(PropertyName = "isTaken")]
+		public bool IsTaken
+		{
+			get => isTaken;
+			set
+			{
+				isTaken = value;
+				OnPropertyChanged("IsTaken"); 
+			}
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

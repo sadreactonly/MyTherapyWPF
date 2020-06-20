@@ -71,6 +71,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Contexts\AppContext.cs" />
+    <Compile Include="Converters\DateTimeToDateConverter.cs" />
+    <Compile Include="Converters\IsTakenBoolToStringConverter.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Migrations\202006181539149_initial.cs" />
     <Compile Include="Migrations\202006181539149_initial.designer.cs">
@@ -80,8 +82,19 @@
     <Compile Include="Migrations\202006181552431_initial1.designer.cs">
       <DependentUpon>202006181552431_initial1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006201311030_therapyChangedMigration.cs" />
+    <Compile Include="Migrations\202006201311030_therapyChangedMigration.designer.cs">
+      <DependentUpon>202006201311030_therapyChangedMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006201317073_NewMigration.cs" />
+    <Compile Include="Migrations\202006201317073_NewMigration.designer.cs">
+      <DependentUpon>202006201317073_NewMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TcpServer\TcpServer.cs" />
+    <Compile Include="UserControls\TherapyListItem.xaml.cs">
+      <DependentUpon>TherapyListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AddTherapyViewModel.cs" />
     <Compile Include="ViewModels\AppointmentsViewModel.cs" />
     <Compile Include="ViewModels\CommunicationVieModel.cs" />
@@ -110,6 +123,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\TherapyListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddTherapyWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -146,6 +163,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006181552431_initial1.resx">
       <DependentUpon>202006181552431_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006201311030_therapyChangedMigration.resx">
+      <DependentUpon>202006201311030_therapyChangedMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006201317073_NewMigration.resx">
+      <DependentUpon>202006201317073_NewMigration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

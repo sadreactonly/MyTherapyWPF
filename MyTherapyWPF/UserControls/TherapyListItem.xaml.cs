@@ -1,9 +1,7 @@
-﻿using MyTherapyWPF.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyTherapyWPF.Views
+namespace MyTherapyWPF.UserControls
 {
 	/// <summary>
-	/// Interaction logic for CommunicationWindow.xaml
+	/// Interaction logic for TherapyListItem.xaml
 	/// </summary>
-	public partial class CommunicationWindow : UserControl
+	public partial class TherapyListItem : UserControl
 	{
-		public CommunicationWindow()
+		public TherapyListItem()
 		{
 			InitializeComponent();
-			CommunicationViewModel communicationViewModel = new CommunicationViewModel();
-			this.DataContext = communicationViewModel;
 		}
-
 	}
 }

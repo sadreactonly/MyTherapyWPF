@@ -33,5 +33,13 @@ namespace MyTherapyWPF.Views
 		{
 
 		}
+
+
+		private void dataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+		{
+			buttonTake.IsEnabled = true;
+			buttonDelete.IsEnabled = true;
+
+		}
 	}
 }

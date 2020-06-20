@@ -15,13 +15,20 @@ namespace MyTherapyWPF.ViewModels
 {
 	public class AddTherapyViewModel 
 	{
-		AppDbContext db = new AppDbContext();
+		DatabaseManager db = new DatabaseManager();
 		public ObservableCollection<double> Schematic { get; set; }
 		public ObservableCollection<DailyTherapy> Therapies { get; set; }
 
 		private RelayCommand _addCommand;
 
 		private RelayCommand _generateCommand;
+
+		private RelayCommand _takeCommand;
+
+		private RelayCommand _editCommand;
+		private RelayCommand _deleteCommand;
+
+		public DailyTherapy SelectedItem { get; set; }
 
 		public string Dosage { get; set; }
 		public DateTime StartDate { get; set; } = DateTime.Now;
@@ -30,7 +37,8 @@ namespace MyTherapyWPF.ViewModels
 		public AddTherapyViewModel()
 		{
 			Schematic = new ObservableCollection<double>();
-			Therapies = new ObservableCollection<DailyTherapy>(db.Therapies);
+			Therapies = new ObservableCollection<DailyTherapy>();
+			Therapies = new ObservableCollection<DailyTherapy>(db.GetTherapies());
 		}
 
 		public ICommand AddCommand
@@ -56,6 +64,23 @@ namespace MyTherapyWPF.ViewModels
 				return _generateCommand;
 			}
 		}
+		public ICommand TakeCommand
+		{
+			get
+			{
+				if (_takeCommand == null)
+				{
+					_takeCommand = new RelayCommand(TakeAction);
+				}
+				return _takeCommand;
+			}
+		}
+
+		private void TakeAction(object obj)
+		{
+			if (SelectedItem != null)
+				db.TakeTherapy(SelectedItem);
+		}
 
 		private void GenerateCommandAction(object obj)
 		{
@@ -73,6 +98,40 @@ namespace MyTherapyWPF.ViewModels
 				MessageBox.Show("Wrong format!");
 		}
 
+		public ICommand EditCommand
+		{
+			get
+			{
+				if (_editCommand == null)
+				{
+					_editCommand = new RelayCommand(EditAction);
+				}
+				return _editCommand;
+			}
+		}
+
+		public ICommand DeleteCommand
+		{
+			get
+			{
+				if (_deleteCommand == null)
+				{
+					_deleteCommand = new RelayCommand(DeleteAction);
+				}
+				return _deleteCommand;
+			}
+		}
+
+		private void DeleteAction(object obj)
+		{
+			db.DeleteTherapy(SelectedItem);
+			Therapies.Remove(SelectedItem);
+		}
+
+		private void EditAction(object obj)
+		{
+			throw new NotImplementedException();
+		}
 
 		/// <summary>
 		/// Create therapy schema based on dosage schema and dates.
@@ -99,8 +158,7 @@ namespace MyTherapyWPF.ViewModels
 			}
 
 
-			db.Therapies.AddRange(Therapies);
-			db.SaveChanges();
+			db.AddTherapies(Therapies);
 		}
 
 	}
