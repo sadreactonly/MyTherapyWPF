@@ -44,6 +44,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.2.6.1513, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.6\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=3.1.3.1513, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.3.1.3\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -73,6 +79,7 @@
     <Compile Include="Contexts\AppContext.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\IsTakenBoolToStringConverter.cs" />
+    <Compile Include="Converters\ServerConnectionBoolToStringConverter.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Migrations\202006181539149_initial.cs" />
     <Compile Include="Migrations\202006181539149_initial.designer.cs">
@@ -95,21 +102,21 @@
     <Compile Include="UserControls\TherapyListItem.xaml.cs">
       <DependentUpon>TherapyListItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AddTherapyViewModel.cs" />
+    <Compile Include="ViewModels\TherapiesViewModel.cs" />
     <Compile Include="ViewModels\AppointmentsViewModel.cs" />
     <Compile Include="ViewModels\CommunicationVieModel.cs" />
     <Compile Include="ViewModels\GeneralWindowViewModel.cs" />
-    <Compile Include="Views\AddTherapyWindowView.xaml.cs">
-      <DependentUpon>AddTherapyWindowView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\AppointmentsView.xaml.cs">
       <DependentUpon>AppointmentsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommunicationWindow.xaml.cs">
       <DependentUpon>CommunicationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GeneralWindowView.xaml.cs">
-      <DependentUpon>GeneralWindowView.xaml</DependentUpon>
+    <Compile Include="Views\GeneralView.xaml.cs">
+      <DependentUpon>GeneralView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TherapiesView.xaml.cs">
+      <DependentUpon>TherapiesView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -127,10 +134,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddTherapyWindowView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AppointmentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -139,7 +142,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GeneralWindowView.xaml">
+    <Page Include="Views\GeneralView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TherapiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,6 +203,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets')" />
 </Project>

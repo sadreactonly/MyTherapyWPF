@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyTherapyWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,26 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyTherapyWPF
+namespace MyTherapyWPF.Views
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for GeneralView.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class GeneralView : UserControl
 	{
-		public MainWindow()
+		public GeneralView()
 		{
 			InitializeComponent();
-		}
-
-		private void buttonClose_Click(object sender, RoutedEventArgs e)
-		{
-			Application.Current.Shutdown();
-		}
-		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			if (e.ChangedButton == MouseButton.Left)
-				this.DragMove();
+			GeneralWindowViewModel generalWindowViewModel = new GeneralWindowViewModel();
+			this.DataContext = generalWindowViewModel;
 		}
 	}
 }

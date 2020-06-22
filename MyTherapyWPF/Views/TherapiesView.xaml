@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="MyTherapyWPF.Views.TherapiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyTherapyWPF.Views"
+			 xmlns:converter="clr-namespace:MyTherapyWPF.Converters"
+			 xmlns:resx="clr-namespace:MyTherapyWPF.Properties"
+			 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converter:DateTimeToDateConverter x:Key="DateTimeToDateConverter"/>
+            <converter:IsTakenBoolToStringConverter x:Key="IsTakenBoolToStringConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="#FFE5E5E5">
+        <ListBox x:Name="listBox" ItemsSource="{Binding Schematic}" Background="{DynamicResource MaterialDesignLightBackground}" HorizontalAlignment="Left" Height="404" Margin="46,205,0,0" VerticalAlignment="Top" Width="226"/>
+        <Button x:Name="button" Command="{Binding AddCommand}" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Margin="206,144,0,0" Height="32"/>
+        <Label x:Name="label" Content="{x:Static resx:Resources.CREATE_SCHEMATIC}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="46,90,0,0" Width="226"/>
+        <TextBox x:Name="textBox" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" Text="{Binding Dosage, Mode=TwoWay}" HorizontalAlignment="Left" Height="32" Margin="46,144,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="136"/>
+        <DatePicker x:Name="startDatePicker" SelectedDate="{Binding StartDate}" HorizontalAlignment="Left" Margin="428,99,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="endDatePicker" SelectedDate="{Binding EndDate}" HorizontalAlignment="Left" Margin="549,99,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button1" Content="Generate" Command="{Binding GenerateCommand}" HorizontalAlignment="Left" Margin="651,90,0,0" VerticalAlignment="Top" Width="91" Height="32"/>
+        <Label x:Name="label1"  Content="{x:Static resx:Resources.START_DATE}" HorizontalAlignment="Left" Margin="428,73,0,0" VerticalAlignment="Top" Width="102"/>
+        <Label x:Name="label1_Copy" Content="{x:Static resx:Resources.END_DATE}" HorizontalAlignment="Left" Margin="549,73,0,0" VerticalAlignment="Top" Width="102"/>
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Therapies, Mode=TwoWay}" SelectedItem="{Binding SelectedItem}" SelectedCellsChanged="dataGrid_SelectedCellsChanged" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="428" Margin="428,181,0,0" VerticalAlignment="Top" Width="316">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dose" Binding="{Binding Dose}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="State" Binding="{Binding IsTaken,Converter={StaticResource IsTakenBoolToStringConverter}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="buttonEdit" Content="Edit" Command="{Binding EditCommand}" IsEnabled="False" HorizontalAlignment="Left" Margin="428,144,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonDelete" Content="Delete" Command="{Binding DeleteCommand}" IsEnabled="False" HorizontalAlignment="Left" Margin="508,144,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonTake" Content="Take" Command="{Binding TakeCommand}" IsEnabled="False" HorizontalAlignment="Left" Margin="588,144,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</UserControl>

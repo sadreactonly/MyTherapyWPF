@@ -1,45 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
 using MyTherapyWPF.Commands;
 using System.Collections.ObjectModel;
 using MyTherapyWPF.Common;
 using System.Windows;
-using MyTherapyWPF.Contexts;
 
 namespace MyTherapyWPF.ViewModels
 {
-	public class AddTherapyViewModel 
+	public class TherapiesViewModel : INotifyPropertyChanged
 	{
-		DatabaseManager db = new DatabaseManager();
-		public ObservableCollection<double> Schematic { get; set; }
-		public ObservableCollection<DailyTherapy> Therapies { get; set; }
-
+		DatabaseManager db = DatabaseManager.Instance;
+	
 		private RelayCommand _addCommand;
-
 		private RelayCommand _generateCommand;
-
 		private RelayCommand _takeCommand;
-
 		private RelayCommand _editCommand;
 		private RelayCommand _deleteCommand;
 
-		public DailyTherapy SelectedItem { get; set; }
+		private ObservableCollection<DailyTherapy> _therapies; 
 
+		public DailyTherapy SelectedItem { get; set; }
 		public string Dosage { get; set; }
 		public DateTime StartDate { get; set; } = DateTime.Now;
 		public DateTime EndDate { get; set; } = DateTime.Now;
 
-		public AddTherapyViewModel()
+		public ObservableCollection<double> Schematic { get; set; }
+		public ObservableCollection<DailyTherapy> Therapies
 		{
+			get => _therapies;
+			set
+			{
+				_therapies = value;
+				OnPropertyChanged("Therapies");
+			}
+		}
+
+		public TherapiesViewModel()
+		{
+			db = DatabaseManager.Instance;
+			db.DbUpdatedEvent += RefreshGUI;
 			Schematic = new ObservableCollection<double>();
-			Therapies = new ObservableCollection<DailyTherapy>();
 			Therapies = new ObservableCollection<DailyTherapy>(db.GetTherapies());
 		}
+
 
 		public ICommand AddCommand
 		{
@@ -52,7 +57,6 @@ namespace MyTherapyWPF.ViewModels
 				return _addCommand;
 			}
 		}
-
 		public ICommand GenerateCommand
 		{
 			get
@@ -75,29 +79,6 @@ namespace MyTherapyWPF.ViewModels
 				return _takeCommand;
 			}
 		}
-
-		private void TakeAction(object obj)
-		{
-			if (SelectedItem != null)
-				db.TakeTherapy(SelectedItem);
-		}
-
-		private void GenerateCommandAction(object obj)
-		{
-			if(StartDate!=null && EndDate!=null)
-			{
-				CreateScheme();
-			}
-		}
-
-		private void SaveCommandAction(object obj)
-		{
-			if (double.TryParse(Dosage, out double dose))
-				Schematic.Add(dose);
-			else
-				MessageBox.Show("Wrong format!");
-		}
-
 		public ICommand EditCommand
 		{
 			get
@@ -109,7 +90,6 @@ namespace MyTherapyWPF.ViewModels
 				return _editCommand;
 			}
 		}
-
 		public ICommand DeleteCommand
 		{
 			get
@@ -121,16 +101,39 @@ namespace MyTherapyWPF.ViewModels
 				return _deleteCommand;
 			}
 		}
-
+		
+		private void TakeAction(object obj)
+		{
+			if (SelectedItem != null)
+				db.TakeTherapy(SelectedItem);
+		}
+		private void GenerateCommandAction(object obj)
+		{
+			if(StartDate!=null && EndDate!=null)
+			{
+				CreateScheme();
+			}
+		}
+		private void SaveCommandAction(object obj)
+		{
+			if (double.TryParse(Dosage, out double dose))
+				Schematic.Add(dose);
+			else
+				MessageBox.Show("Wrong format!");
+		}
 		private void DeleteAction(object obj)
 		{
 			db.DeleteTherapy(SelectedItem);
 			Therapies.Remove(SelectedItem);
 		}
-
 		private void EditAction(object obj)
 		{
 			throw new NotImplementedException();
+		}
+
+		private void RefreshGUI()
+		{
+			Therapies = new ObservableCollection<DailyTherapy>(db.GetTherapies());
 		}
 
 		/// <summary>
@@ -161,5 +164,10 @@ namespace MyTherapyWPF.ViewModels
 			db.AddTherapies(Therapies);
 		}
 
+		public event PropertyChangedEventHandler PropertyChanged;
+		private void OnPropertyChanged(string propertyName)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }

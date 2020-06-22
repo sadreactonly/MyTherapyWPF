@@ -12,7 +12,30 @@ namespace MyTherapyWPF
 {
 	public class DatabaseManager
 	{
+		private static object _lock = new object();
+		private static DatabaseManager _instance;
+
+		public static DatabaseManager Instance
+		{
+			get
+			{
+				lock (_lock)
+				{
+					if (_instance == null)
+						_instance = new DatabaseManager();
+
+					return _instance;
+				}
+
+			}
+		}
+
+
 		private AppDbContext db = AppDbContext.Instance;
+
+		public delegate void DbUpdatedEventHandler();
+
+		public DbUpdatedEventHandler DbUpdatedEvent;
 
 		public DailyTherapy GetDailyTherapy()
 		{
@@ -36,12 +59,15 @@ namespace MyTherapyWPF
 		{
 			db.Therapies.AddRange(therapies);
 			db.SaveChanges();
+			DbUpdatedEvent?.Invoke();
 		}
 
 		public void DeleteTherapy(DailyTherapy therapy)
 		{
 			db.Therapies.Remove(therapy);
 			db.SaveChanges();
+			//DatabaseUpdatedEvent?.Invoke();
+
 		}
 	}
 }

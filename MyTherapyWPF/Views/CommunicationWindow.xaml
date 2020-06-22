@@ -3,12 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:converter="clr-namespace:MyTherapyWPF.Converters"
              xmlns:local="clr-namespace:MyTherapyWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<converter:DateTimeToDateConverter x:Key="DateTimeToDateConverter"/>
+			<converter:ServerConnectionBoolToStringConverter x:Key="ServerConnectionBoolToStringConverter"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
 	<Grid Background="#FFE5E5E5">
-		<Button x:Name="buttonStartService" Content="Start service" HorizontalAlignment="Left" Margin="47,75,0,0" VerticalAlignment="Top" Width="75" Command="{Binding StartServiceCommand}"/>
-		<Label x:Name="labelServiceState" Content="Server is not started." HorizontalAlignment="Left" Margin="47,44,0,0" VerticalAlignment="Top"/>
-
+		<Button x:Name="buttonStartService" IsEnabled="{Binding IsStartButtonEnabled}" Content="Start service" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Width="116" Command="{Binding StartServiceCommand}"/>
+		<Label x:Name="labelServiceState" Content="{Binding IsStarted, Converter={StaticResource ServerConnectionBoolToStringConverter}, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Height="43" Width="277"/>
+		<Button x:Name="button" Content="Stop service" IsEnabled="{Binding IsStopButtonEnabled}"  Command="{Binding StopServiceCommand}" HorizontalAlignment="Left" Margin="131,75,0,0" VerticalAlignment="Top" Width="116"/>
 	</Grid>
 </UserControl>

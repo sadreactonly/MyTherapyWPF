@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace MyTherapyWPF {
     // State object for reading client data asynchronously  
@@ -32,12 +34,22 @@ namespace MyTherapyWPF {
     {
         // Thread signal.  
         public static ManualResetEvent allDone = new ManualResetEvent(false);
+        public bool IsConnected { get; set; } = false;
+        public bool IsStarted { get; set; } = false;
 
+        public delegate void StartedEventHandler();
+        public delegate void OnRecievedEventHandler(List<DailyTherapy> dailyTherapies);
+
+        public StartedEventHandler ConnectedEvent;
+        public OnRecievedEventHandler TherapiesReceived;
+
+        Socket listener;
         public AsynchronousSocketListener()
         {
+
         }
 
-        public static void StartListening()
+        public  void StartListening()
         {
             // Establish the local endpoint for the socket.  
             // The DNS name of the computer  
@@ -48,7 +60,7 @@ namespace MyTherapyWPF {
 
             var ip = ipAddress.ToString();
             // Create a TCP/IP socket.  
-            Socket listener = new Socket(ipAddress.AddressFamily,
+             listener = new Socket(ipAddress.AddressFamily,
                 SocketType.Stream, ProtocolType.Tcp);
 
             // Bind the socket to the local endpoint and listen for incoming connections.  
@@ -56,15 +68,12 @@ namespace MyTherapyWPF {
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(100);
-
+                IsStarted = true;
+                ConnectedEvent?.Invoke();
                 while (true)
                 {
                     // Set the event to nonsignaled state.  
                     allDone.Reset();
-
-                    // Start an asynchronous socket to listen for connections.  
-                    Console.WriteLine("Waiting for a connection...");
-                    MessageBox.Show("Waiting for a connection...");
 
                     listener.BeginAccept(
                         new AsyncCallback(AcceptCallback),
@@ -77,31 +86,44 @@ namespace MyTherapyWPF {
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
-
-                Console.WriteLine(e.ToString());
+               
             }
 
 
         }
 
-        public static void AcceptCallback(IAsyncResult ar)
+		public void Stop()
+		{
+            //listener.Disconnect(true);
+           // listener.Shutdown(SocketShutdown.Both);
+            listener.Close();
+		}
+
+		public  void AcceptCallback(IAsyncResult ar)
         {
-            // Signal the main thread to continue.  
-            allDone.Set();
+			try
+			{
+                // Signal the main thread to continue.  
+                allDone.Set();
 
-            // Get the socket that handles the client request.  
-            Socket listener = (Socket)ar.AsyncState;
-            Socket handler = listener.EndAccept(ar);
+                // Get the socket that handles the client request.  
+                Socket listener = (Socket)ar.AsyncState;
+                Socket handler = listener.EndAccept(ar);
 
-            // Create the state object.  
-            StateObject state = new StateObject();
-            state.workSocket = handler;
-            handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                new AsyncCallback(ReadCallback), state);
+                // Create the state object.  
+                StateObject state = new StateObject();
+                state.workSocket = handler;
+                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    new AsyncCallback(ReadCallback), state);
+            }
+            catch(Exception ex)
+			{
+
+			}
+            
         }
 
-        public static void ReadCallback(IAsyncResult ar)
+        public  void ReadCallback(IAsyncResult ar)
         {
             String content = String.Empty;
 
@@ -123,18 +145,17 @@ namespace MyTherapyWPF {
                 // more data.  
 
                 content = state.sb.ToString();
-                List<DailyTherapy> obj = JsonConvert.DeserializeObject<List<DailyTherapy>>(content);
 
-                if (content.IndexOf("<EOF>") > -1)
+                if (content.IndexOf("]") > -1)
                 {
+                    TherapiesReceived?.Invoke(JsonConvert.DeserializeObject<List<DailyTherapy>>(content));
+
                     // All the data has been read from the
                     // client. Display it on the console.  
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
-                    // Echo the data back to the client.  
-                    //var clientList = (List<string>)formatter.Deserialize(handler.);
-                    
-                    Send(handler, content);
+
+                   // Send(handler, content);
                 }
                 else
                 {
@@ -145,36 +166,36 @@ namespace MyTherapyWPF {
             }
         }
 
-        private static void Send(Socket handler, String data)
-        {
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
+        //private  void Send(Socket handler, String data)
+        //{
+        //    // Convert the string data to byte data using ASCII encoding.  
+        //    byte[] byteData = Encoding.ASCII.GetBytes(data);
 
-            // Begin sending the data to the remote device.  
-            handler.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), handler);
-        }
+        //    // Begin sending the data to the remote device.  
+        //    handler.BeginSend(byteData, 0, byteData.Length, 0,
+        //        new AsyncCallback(SendCallback), handler);
+        //}
 
-        private static void SendCallback(IAsyncResult ar)
-        {
-            try
-            {
-                // Retrieve the socket from the state object.  
-                Socket handler = (Socket)ar.AsyncState;
+        //private  void SendCallback(IAsyncResult ar)
+        //{
+        //    try
+        //    {
+        //        // Retrieve the socket from the state object.  
+        //        Socket handler = (Socket)ar.AsyncState;
 
-                // Complete sending the data to the remote device.  
-                int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
+        //        // Complete sending the data to the remote device.  
+        //        int bytesSent = handler.EndSend(ar);
+        //        Console.WriteLine("Sent {0} bytes to client.", bytesSent);
 
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
+        //        handler.Shutdown(SocketShutdown.Both);
+        //        handler.Close();
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.ToString());
+        //    }
+        //}
 
     }
 }

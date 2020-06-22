@@ -17,15 +17,29 @@ using System.Windows.Shapes;
 namespace MyTherapyWPF.Views
 {
 	/// <summary>
-	/// Interaction logic for GeneralWindowView.xaml
+	/// Interaction logic for TherapiesView.xaml
 	/// </summary>
-	public partial class GeneralWindowView : UserControl
+	public partial class TherapiesView : UserControl
 	{
-		public GeneralWindowView()
+		TherapiesViewModel addTherapyViewModel;
+		public TherapiesView()
 		{
 			InitializeComponent();
-			GeneralWindowViewModel generalWindowViewModel = new GeneralWindowViewModel();
-			this.DataContext = generalWindowViewModel;
+			addTherapyViewModel = new TherapiesViewModel();
+			this.DataContext = addTherapyViewModel;
+		}
+
+		private void UserControl_Loaded(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+
+		private void dataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+		{
+			buttonTake.IsEnabled = true;
+			buttonDelete.IsEnabled = true;
+
 		}
 	}
 }
