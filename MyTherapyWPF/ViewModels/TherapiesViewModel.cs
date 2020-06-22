@@ -33,7 +33,7 @@ namespace MyTherapyWPF.ViewModels
 			set
 			{
 				_therapies = value;
-				OnPropertyChanged("Therapies");
+				OnPropertyChanged(nameof(Therapies));
 			}
 		}
 

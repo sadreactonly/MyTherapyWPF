@@ -3,8 +3,6 @@ using MyTherapyWPF.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using System.Collections.ObjectModel;
 
@@ -12,7 +10,7 @@ namespace MyTherapyWPF
 {
 	public class DatabaseManager
 	{
-		private static object _lock = new object();
+		private static readonly object _lock = new object();
 		private static DatabaseManager _instance;
 
 		public static DatabaseManager Instance
@@ -29,7 +27,6 @@ namespace MyTherapyWPF
 
 			}
 		}
-
 
 		private AppDbContext db = AppDbContext.Instance;
 

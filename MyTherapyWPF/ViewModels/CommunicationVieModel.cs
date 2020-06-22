@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 
 namespace MyTherapyWPF.ViewModels
 {
-	public class CommunicationViewModel :INotifyPropertyChanged
+	public sealed class CommunicationViewModel :INotifyPropertyChanged,IDisposable
 	{
 		DatabaseManager db =  DatabaseManager.Instance;
 		private RelayCommand startServiceCommand;
@@ -40,7 +40,7 @@ namespace MyTherapyWPF.ViewModels
 			set
 			{
 				isStarted = value;
-				OnPropertyChanged("IsStarted");
+				OnPropertyChanged(nameof(IsStarted));
 			}
 		}
 		public bool IsStartButtonEnabled
@@ -49,7 +49,7 @@ namespace MyTherapyWPF.ViewModels
 			set
 			{
 				isStartButtonEnabled = value;
-				OnPropertyChanged("IsStartButtonEnabled");
+				OnPropertyChanged(nameof(IsStartButtonEnabled));
 			}
 		}
 		public bool IsStopButtonEnabled
@@ -58,7 +58,7 @@ namespace MyTherapyWPF.ViewModels
 			set
 			{
 				isStopButtonEnabled = value;
-				OnPropertyChanged("IsStopButtonEnabled");
+				OnPropertyChanged(nameof(IsStopButtonEnabled));
 			}
 		}
 		
@@ -127,6 +127,11 @@ namespace MyTherapyWPF.ViewModels
 		private void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
+		public void Dispose()
+		{
+			this.Dispose();
 		}
 	}
 }

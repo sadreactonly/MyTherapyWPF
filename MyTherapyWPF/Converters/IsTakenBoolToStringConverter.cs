@@ -26,8 +26,10 @@ namespace MyTherapyWPF.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			string val = (string)value;
+			if (val == null)
+				throw new ArgumentNullException(nameof(value));
 
-			if(val.Equals("Taken"))
+			if(val.Equals("Taken",StringComparison.CurrentCulture))
 			{
 				return true;
 			}
