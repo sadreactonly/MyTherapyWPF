@@ -79,7 +79,7 @@ namespace MyTherapyWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Todays therapy dosage:.
+        ///   Looks up a localized string similar to Today&apos;s therapy dosage:.
         /// </summary>
         public static string DAILY_THERAPY_DOSAGE {
             get {

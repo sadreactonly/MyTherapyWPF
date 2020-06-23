@@ -137,11 +137,12 @@
     <Compile Include="Migrations\202006230353428_Migration.designer.cs">
       <DependentUpon>202006230353428_Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006231530510_sksk.cs" />
+    <Compile Include="Migrations\202006231530510_sksk.designer.cs">
+      <DependentUpon>202006231530510_sksk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TcpServer\TcpServer.cs" />
-    <Compile Include="UserControls\TherapyListItem.xaml.cs">
-      <DependentUpon>TherapyListItem.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\TherapiesViewModel.cs" />
     <Compile Include="ViewModels\AppointmentsViewModel.cs" />
     <Compile Include="ViewModels\CommunicationVieModel.cs" />
@@ -170,10 +171,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\TherapyListItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AppointmentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,9 +205,13 @@
     <EmbeddedResource Include="Migrations\202006230353428_Migration.resx">
       <DependentUpon>202006230353428_Migration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006231530510_sksk.resx">
+      <DependentUpon>202006231530510_sksk.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

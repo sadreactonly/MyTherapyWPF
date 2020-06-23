@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Data;
-using MyTherapyWPF.Common;
+using Common.Models;
 using System.Windows;
 using ClosedXML.Excel;
 namespace MyTherapyWPF
@@ -36,9 +34,10 @@ namespace MyTherapyWPF
 		public static void Generate(List<DailyTherapy> models)
 		{
 			using (var wb = new XLWorkbook())
-			{
-					if (models == null)
-						return;
+			{ 
+				if (models == null) 
+					return;
+
 				DataTable dt = ConvertToDataTable(models);
 				wb.Worksheets.Add(dt, "Therapies");
 				wb.SaveAs("MyInrReport.xlsx");

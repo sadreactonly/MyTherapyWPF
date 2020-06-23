@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MyTherapyWPF"
 		xmlns:control = "clr-namespace:MyTherapyWPF.Views" 
         mc:Ignorable="d"
-		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="25"
@@ -16,7 +14,7 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
         Title="MainWindow" Height="693" Width="800" WindowStyle="None" ResizeMode="NoResize">
 	<Grid>
-		<TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="624" Margin="10,59,0,0" VerticalAlignment="Top" Width="772">
+		<TabControl x:Name="TabControl" HorizontalAlignment="Left" Height="624" Margin="10,59,0,0" VerticalAlignment="Top" Width="772">
 			<TabItem Header="General">
 				<control:GeneralView/>
 			</TabItem>
@@ -28,7 +26,7 @@
 			</TabItem>
 		</TabControl>
 		<Grid HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="800" Background="#FF673AB7" MouseDown="Window_MouseDown">
-			<Button x:Name="buttonClose" Content="Close" Click="buttonClose_Click"  HorizontalAlignment="Left" Margin="703,10,0,0" VerticalAlignment="Top" Width="75"/>
+			<Button x:Name="ButtonClose" Content="Close" Click="ButtonClose_Click"  HorizontalAlignment="Left" Margin="703,10,0,0" VerticalAlignment="Top" Width="75"/>
 		</Grid>
 	</Grid>
 </Window>

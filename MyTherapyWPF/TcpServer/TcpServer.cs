@@ -1,53 +1,39 @@
-﻿using MyTherapyWPF.Common;
+﻿using Common.Models;
 using Newtonsoft.Json;
 using System;
-using System.CodeDom;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
-using System.Windows;
-using System.Windows.Controls.Primitives;
 
-namespace MyTherapyWPF {
+
+namespace MyTherapyWPF.TcpServer {
     // State object for reading client data asynchronously  
     public class StateObject
     {
         // Client  socket.  
-        public Socket WorkSocket { get; set; } = null;
+        public Socket WorkSocket { get; set; } 
         // Size of receive Buffer.  
         public const int BufferSize = 1024*1024;
         // Receive Buffer.  
         public byte[] Buffer { get; set; }  = new byte[BufferSize];
         // Received data string.  
         public StringBuilder Sb { get; set; } = new StringBuilder();
-
-
     }
 
     public sealed class AsynchronousSocketListener : IDisposable
 	{
         // Thread signal.  
-        public static ManualResetEvent allDone = new ManualResetEvent(false);
-        public bool IsConnected { get; set; } = false;
-        public bool IsStarted { get; set; } = false;
+        private static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
 
         public delegate void StartedEventHandler();
-        public delegate void OnRecievedEventHandler(List<DailyTherapy> dailyTherapies);
+        public delegate void OnReceivedEventHandler(List<DailyTherapy> dailyTherapies);
 
         public StartedEventHandler ConnectedEvent;
-        public OnRecievedEventHandler TherapiesReceived;
+        public OnReceivedEventHandler TherapiesReceived;
 
         Socket listener;
-        public AsynchronousSocketListener()
-        {
-
-        }
 
         public  void StartListening()
         {
@@ -56,33 +42,30 @@ namespace MyTherapyWPF {
             IPAddress ipAddress = ipHostInfo.AddressList[9];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
-            var ip = ipAddress.ToString();
-             listener = new Socket(ipAddress.AddressFamily,
+            listener = new Socket(ipAddress.AddressFamily,
                 SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(100);
-                IsStarted = true;
                 ConnectedEvent?.Invoke();
                 while (true)
                 {
-                    allDone.Reset();
+                    AllDone.Reset();
 
                     listener.BeginAccept(
-                        new AsyncCallback(AcceptCallback),
+                        AcceptCallback,
                         listener);
 
-                    allDone.WaitOne();
+                    AllDone.WaitOne();
                 }
 
             }
-            catch(Exception ex)
+            catch(SocketException ex)
             {
                 Console.WriteLine(ex);
             }
-
 
         }
 
@@ -90,34 +73,42 @@ namespace MyTherapyWPF {
 		{
 
             listener.Close();
+
 		}
 
 		public  void AcceptCallback(IAsyncResult ar)
         {
-			try
-			{
-                allDone.Set();
+            if (ar == null)
+                return;
+            try
+            {
+	            AllDone.Set();
 
-                Socket listener = (Socket)ar.AsyncState;
-                Socket handler = listener.EndAccept(ar);
+	            Socket arAsyncState = (Socket) ar.AsyncState;
+	            Socket handler = arAsyncState.EndAccept(ar);
 
-				StateObject state = new StateObject
-				{
-					WorkSocket = handler
-				};
-				handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReadCallback), state);
+	            StateObject state = new StateObject
+	            {
+		            WorkSocket = handler
+	            };
+	            handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0,
+		            ReadCallback, state);
             }
-            catch(Exception ex)
-			{
-                Console.WriteLine(ex);
-			}
+            catch (SocketException ex)
+            {
+	            Console.WriteLine(ex);
+            }
+            catch (ObjectDisposedException ex)
+            {
+	            Console.WriteLine(ex);
+            }
             
         }
 
         public  void ReadCallback(IAsyncResult ar)
         {
-            String content = String.Empty;
+            if (ar == null)
+                return;
             StateObject state = new StateObject();
   
             try
@@ -139,7 +130,7 @@ namespace MyTherapyWPF {
                 state.Sb.Append(Encoding.ASCII.GetString(
                     state.Buffer, 0, bytesRead));
 
-                content = state.Sb.ToString();
+                var content = state.Sb.ToString();
 
                 if (content.IndexOf("]", StringComparison.CurrentCulture)>-1)
                 {
@@ -149,7 +140,7 @@ namespace MyTherapyWPF {
                 else
                 {
                     handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReadCallback), state);
+                    ReadCallback, state);
                 }
             }
         }

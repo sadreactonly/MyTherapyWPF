@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace MyTherapyWPF.Converters
@@ -12,12 +8,14 @@ namespace MyTherapyWPF.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			if (value == null)
+				return "None.";
 			return ((DateTime)value).ToShortDateString();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return DateTime.Parse((string)value);
+			return DateTime.Parse((string)value, CultureInfo.CurrentCulture);
 		}
 	}
 }

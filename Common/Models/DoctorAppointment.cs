@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MyTherapyWPF.Common
+namespace Common.Models
 {
 	public class DoctorAppointment:INotifyPropertyChanged
 	{
@@ -20,7 +16,7 @@ namespace MyTherapyWPF.Common
 			set
 			{
 				inr = value;
-				OnPropertyChanged("INR");
+				OnPropertyChanged(nameof(INR));
 			} 
 		}
 
@@ -33,7 +29,7 @@ namespace MyTherapyWPF.Common
 			set
 			{
 				date = value;
-				OnPropertyChanged("Date");
+				OnPropertyChanged(nameof(Date));
 			}
 		}
 

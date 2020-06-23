@@ -1,5 +1,5 @@
 ﻿using MyTherapyWPF.Contexts;
-using MyTherapyWPF.Common;
+using Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace MyTherapyWPF.ViewModels
 {
 	public class GeneralWindowViewModel
 	{
-        DatabaseManager dbManager = new DatabaseManager();
+        private readonly DatabaseManager dbManager = new DatabaseManager();
         public DoctorAppointment LastDoctorAppointment { get; set; }
         public DoctorAppointment NextDoctorAppointment { get; set; }
 

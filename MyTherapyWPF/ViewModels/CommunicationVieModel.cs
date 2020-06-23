@@ -1,22 +1,17 @@
 ﻿using MyTherapyWPF.Commands;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using MyTherapyWPF;
 using System.ComponentModel;
-using MyTherapyWPF.Common;
-using System.Windows;
-using System.Data.Entity;
+using Common.Models;
 using System.Collections.ObjectModel;
+using MyTherapyWPF.TcpServer;
 
 namespace MyTherapyWPF.ViewModels
 {
 	public sealed class CommunicationViewModel :INotifyPropertyChanged,IDisposable
 	{
-		DatabaseManager db =  DatabaseManager.Instance;
+		readonly DatabaseManager db =  DatabaseManager.Instance;
 		private RelayCommand startServiceCommand;
 		private RelayCommand stopServiceCommand;
 		private RelayCommand generateExcelTableCommand;
@@ -64,40 +59,11 @@ namespace MyTherapyWPF.ViewModels
 			}
 		}
 		
-		public RelayCommand StopServiceCommand
-		{
-			get
-			{
-				if (stopServiceCommand == null)
-				{
-					stopServiceCommand = new RelayCommand(StopServiceAction);
-				}
-				return stopServiceCommand;
-			}
-		}
-		public RelayCommand StartServiceCommand
-		{
-			get
-			{
-				if (startServiceCommand == null)
-				{
-					startServiceCommand = new RelayCommand(StartServiceAction);
-				}
-				return startServiceCommand;
-			}
-		}
+		public RelayCommand StopServiceCommand => stopServiceCommand ?? (stopServiceCommand = new RelayCommand(StopServiceAction));
 
-		public RelayCommand GenerateExcelTableCommand
-		{
-			get
-			{
-				if (generateExcelTableCommand == null)
-				{
-					generateExcelTableCommand = new RelayCommand(GenerateExcelFile);
-				}
-				return generateExcelTableCommand;
-			}
-		}
+		public RelayCommand StartServiceCommand => startServiceCommand ?? (startServiceCommand = new RelayCommand(StartServiceAction));
+
+		public RelayCommand GenerateExcelTableCommand => generateExcelTableCommand ?? (generateExcelTableCommand = new RelayCommand(GenerateExcelFile));
 
 		private void GenerateExcelFile(object obj)
 		{
@@ -114,13 +80,12 @@ namespace MyTherapyWPF.ViewModels
 		{
 			service = new AsynchronousSocketListener();
 			service.ConnectedEvent += Connected;
-			service.TherapiesReceived += TherapiesRecieved;	
+			service.TherapiesReceived += TherapiesReceived;	
 			service.StartListening();
 		}
 
-		private void TherapiesRecieved(List<DailyTherapy> dailyTherapies)
+		private void TherapiesReceived(List<DailyTherapy> dailyTherapies)
 		{
-			//MessageBox.Show($"Therapies recieved. Count:{dailyTherapies.Count}");
 			db.AddTherapies(new ObservableCollection<DailyTherapy>(dailyTherapies)); 
 		}
 

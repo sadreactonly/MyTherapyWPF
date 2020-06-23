@@ -1,34 +1,32 @@
 ﻿using MyTherapyWPF.Contexts;
-using MyTherapyWPF.Common;
+using Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity.Migrations;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 
 namespace MyTherapyWPF
 {
 	public class DatabaseManager
 	{
-		private static readonly object _lock = new object();
-		private static DatabaseManager _instance;
+		private static readonly object Lock = new object();
+		private static DatabaseManager instance;
 
 		public static DatabaseManager Instance
 		{
 			get
 			{
-				lock (_lock)
+				lock (Lock)
 				{
-					if (_instance == null)
-						_instance = new DatabaseManager();
-
-					return _instance;
+					return instance ?? (instance = new DatabaseManager());
 				}
 
 			}
 		}
 
-		private AppDbContext db = AppDbContext.Instance;
+		private readonly AppDbContext db = AppDbContext.Instance;
 
 		public delegate void DbUpdatedEventHandler();
 
@@ -36,12 +34,13 @@ namespace MyTherapyWPF
 
 		public DailyTherapy GetDailyTherapy()
 		{
-			var therapies = db.Therapies.ToList();
-			return therapies.Where(x => x.Date.Date == DateTime.Now.Date).FirstOrDefault();
+			return db.Therapies.FirstOrDefault(x => DbFunctions.TruncateTime(x.Date) == DbFunctions.TruncateTime(DateTime.Now));
 		}
 
 		public void TakeTherapy(DailyTherapy therapy)
 		{
+			if (therapy == null)
+				return;
 			therapy.IsTaken = true;
 			db.Therapies.AddOrUpdate(therapy);
 			db.SaveChanges();
@@ -54,6 +53,8 @@ namespace MyTherapyWPF
 
 		public void AddTherapies(ObservableCollection<DailyTherapy> therapies)
 		{
+			if (therapies == null)
+				return;
 			foreach(var tmp in therapies)
 			{
 				db.Therapies.AddOrUpdate(tmp);
@@ -66,13 +67,7 @@ namespace MyTherapyWPF
 		{
 			db.Therapies.Remove(therapy);
 			db.SaveChanges();
-			//DatabaseUpdatedEvent?.Invoke();
-
 		}
 
-		internal object GetTable()
-		{
-			return db.Therapies;
-		}
 	}
 }

@@ -2,18 +2,15 @@
 using SQLite;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
-namespace MyTherapyWPF.Common
+namespace Common.Models
 {
-	//[Serializable]
 	[Table("DailyTherapy")]
 	public class DailyTherapy : INotifyPropertyChanged
 	{
 		private double dose;
 		private DateTime date;
-		private bool isTaken = false;
-		private DateTime lastModified;
+		private bool isTaken;
 
 		[JsonProperty(PropertyName = "id")]
 		[PrimaryKey, AutoIncrement]
@@ -31,7 +28,7 @@ namespace MyTherapyWPF.Common
 			set
 			{
 				dose = value;
-				OnPropertyChanged("Dose");
+				OnPropertyChanged(nameof(Dose));
 			}
 		}
 
@@ -44,25 +41,10 @@ namespace MyTherapyWPF.Common
 			set
 			{
 				date = value;
-				OnPropertyChanged("Date");
+				OnPropertyChanged(nameof(Dose));
 			} 
 		}
 		
-		/// <summary>
-		/// Gets or sets date for last modification of object.
-		/// </summary>
-		[JsonProperty(PropertyName = "lastModified")]
-		public DateTime LastModified
-		{
-			get => lastModified;
-			set
-			{
-				lastModified = value;
-				OnPropertyChanged("LastModified");
-			}
-		}
-
-
 		/// <summary>
 		/// Gets or sets info is therapy taken.
 		/// </summary>
@@ -73,8 +55,7 @@ namespace MyTherapyWPF.Common
 			set
 			{
 				isTaken = value;
-				lastModified = DateTime.Now;
-				OnPropertyChanged("IsTaken"); 
+				OnPropertyChanged(nameof(IsTaken)); 
 			}
 		}
 

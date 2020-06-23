@@ -1,18 +1,17 @@
-﻿namespace MyTherapyWPF.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+﻿using MyTherapyWPF.Contexts;
+using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MyTherapyWPF.Contexts.AppDbContext>
+namespace MyTherapyWPF.Migrations
+{
+
+    internal sealed class Configuration : DbMigrationsConfiguration<AppDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(MyTherapyWPF.Contexts.AppDbContext context)
+        protected override void Seed(AppDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
