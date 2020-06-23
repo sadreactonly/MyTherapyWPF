@@ -69,5 +69,10 @@ namespace MyTherapyWPF
 			//DatabaseUpdatedEvent?.Invoke();
 
 		}
+
+		internal object GetTable()
+		{
+			return db.Therapies;
+		}
 	}
 }

@@ -17,5 +17,6 @@
 		<Button x:Name="buttonStartService" IsEnabled="{Binding IsStartButtonEnabled}" Content="Start service" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Width="116" Command="{Binding StartServiceCommand}"/>
 		<Label x:Name="labelServiceState" Content="{Binding IsStarted, Converter={StaticResource ServerConnectionBoolToStringConverter}, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Height="43" Width="277"/>
 		<Button x:Name="button" Content="Stop service" IsEnabled="{Binding IsStopButtonEnabled}"  Command="{Binding StopServiceCommand}" HorizontalAlignment="Left" Margin="131,75,0,0" VerticalAlignment="Top" Width="116"/>
+		<Button x:Name="button1" Content="Generate .xls" Command="{Binding GenerateExcelTableCommand}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="116"/>
 	</Grid>
 </UserControl>

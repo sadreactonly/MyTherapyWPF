@@ -132,6 +132,7 @@
     <Compile Include="Converters\IsTakenBoolToStringConverter.cs" />
     <Compile Include="Converters\ServerConnectionBoolToStringConverter.cs" />
     <Compile Include="DatabaseManager.cs" />
+    <Compile Include="ExcelFileGenerator.cs" />
     <Compile Include="Migrations\202006230353428_Migration.cs" />
     <Compile Include="Migrations\202006230353428_Migration.designer.cs">
       <DependentUpon>202006230353428_Migration.cs</DependentUpon>

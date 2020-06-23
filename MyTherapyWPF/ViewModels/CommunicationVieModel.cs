@@ -101,9 +101,7 @@ namespace MyTherapyWPF.ViewModels
 
 		private void GenerateExcelFile(object obj)
 		{
-			XLWorkbook wb = new XLWorkbook();
-			DataTable dt = GetDataTableOrWhatever();
-			wb.Worksheets.Add(dt, "WorksheetName");
+			ExcelFileGenerator.Generate(db.GetTherapies());
 		}
 
 		private void StartServiceAction(object obj)
