@@ -6,9 +6,9 @@
    android:padding="8dp">
     <LinearLayout android:id="@+id/Text"
        android:orientation="horizontal"
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:paddingLeft="10dip">
+       >
         <TextView
          android:id="@+id/Text1"
          android:text ="0"
@@ -16,6 +16,7 @@
          android:layout_height="wrap_content"
          android:textSize="20dip"
          android:textStyle="italic"
+            android:layout_weight="1"
          />
         <TextView
          android:id="@+id/Text2"
@@ -23,8 +24,17 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:textSize="20dip"
-       
-         android:paddingLeft="100dip"
+                        android:layout_weight="1"
+
+         />
+        <TextView
+         android:id="@+id/Text3"
+         android:text ="Not Taken"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textSize="20dip"
+         android:layout_weight="1"
+
          />
     </LinearLayout>
 </RelativeLayout >

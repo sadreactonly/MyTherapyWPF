@@ -20,12 +20,12 @@ namespace MyTherapyWPF {
     {
         // Client  socket.  
         public Socket WorkSocket { get; set; } = null;
-        // Size of receive buffer.  
+        // Size of receive Buffer.  
         public const int BufferSize = 1024*1024;
-        // Receive buffer.  
-        public byte[] buffer { get; set; }  = new byte[BufferSize];
+        // Receive Buffer.  
+        public byte[] Buffer { get; set; }  = new byte[BufferSize];
         // Received data string.  
-        public StringBuilder sb { get; set; } = new StringBuilder();
+        public StringBuilder Sb { get; set; } = new StringBuilder();
 
 
     }
@@ -101,9 +101,11 @@ namespace MyTherapyWPF {
                 Socket listener = (Socket)ar.AsyncState;
                 Socket handler = listener.EndAccept(ar);
 
-                StateObject state = new StateObject();
-                state.WorkSocket = handler;
-                handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+				StateObject state = new StateObject
+				{
+					WorkSocket = handler
+				};
+				handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
             }
             catch(Exception ex)
@@ -134,10 +136,10 @@ namespace MyTherapyWPF {
 
             if (bytesRead > 0)
             {
-                state.sb.Append(Encoding.ASCII.GetString(
-                    state.buffer, 0, bytesRead));
+                state.Sb.Append(Encoding.ASCII.GetString(
+                    state.Buffer, 0, bytesRead));
 
-                content = state.sb.ToString();
+                content = state.Sb.ToString();
 
                 if (content.IndexOf("]", StringComparison.CurrentCulture)>-1)
                 {
@@ -146,7 +148,7 @@ namespace MyTherapyWPF {
                 }
                 else
                 {
-                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
                 }
             }

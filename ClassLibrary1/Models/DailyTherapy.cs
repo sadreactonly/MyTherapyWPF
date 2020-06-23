@@ -17,7 +17,7 @@ namespace MyTherapyWPF.Common
 
 		[JsonProperty(PropertyName = "id")]
 		[PrimaryKey, AutoIncrement]
-		//[Key]
+		[Key]
 		public int Id { get; set; }
 
 

@@ -19,6 +19,8 @@ namespace MyTherapyWPF.ViewModels
 		DatabaseManager db =  DatabaseManager.Instance;
 		private RelayCommand startServiceCommand;
 		private RelayCommand stopServiceCommand;
+		private RelayCommand generateExcelTableCommand;
+
 		private Thread thread;
 		private bool isStarted;
 		private bool isStartButtonEnabled;
@@ -85,6 +87,25 @@ namespace MyTherapyWPF.ViewModels
 			}
 		}
 
+		public RelayCommand GenerateExcelTableCommand
+		{
+			get
+			{
+				if (generateExcelTableCommand == null)
+				{
+					generateExcelTableCommand = new RelayCommand(GenerateExcelFile);
+				}
+				return generateExcelTableCommand;
+			}
+		}
+
+		private void GenerateExcelFile(object obj)
+		{
+			XLWorkbook wb = new XLWorkbook();
+			DataTable dt = GetDataTableOrWhatever();
+			wb.Worksheets.Add(dt, "WorksheetName");
+		}
+
 		private void StartServiceAction(object obj)
 		{
 			thread = new Thread(StartService);
@@ -101,7 +122,7 @@ namespace MyTherapyWPF.ViewModels
 
 		private void TherapiesRecieved(List<DailyTherapy> dailyTherapies)
 		{
-			MessageBox.Show($"Therapies recieved. Count:{dailyTherapies.Count}");
+			//MessageBox.Show($"Therapies recieved. Count:{dailyTherapies.Count}");
 			db.AddTherapies(new ObservableCollection<DailyTherapy>(dailyTherapies)); 
 		}
 

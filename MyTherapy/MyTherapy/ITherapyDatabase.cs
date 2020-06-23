@@ -8,5 +8,6 @@ namespace MyTherapy
 		public List<DailyTherapy> GetTherapies();
 		public void AddTherapySchema(List<DailyTherapy> therapiesSchema);
 		DailyTherapy GetTodayTherapy();
+		void UpdateTherapy(DailyTherapy therapy);
 	}
 }

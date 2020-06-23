@@ -5,6 +5,7 @@ using System.Linq;
 using SQLite;
 using PCLStorage;
 using MyTherapyWPF.Common;
+using Android.Telephony;
 
 namespace MyTherapy
 {
@@ -16,6 +17,10 @@ namespace MyTherapy
 		SQLiteConnection database;
 		private static TherapyDatabase instance = null;
 		private static readonly object padlock = new object();
+
+		public delegate void TherapyTakenEventHandler();
+
+		public TherapyTakenEventHandler TherapyTakenEvent;
 
 		public TherapyDatabase()
 		{
@@ -30,7 +35,7 @@ namespace MyTherapy
 		public SQLiteConnection GetConnection()
 		{
 			SQLiteConnection sqlitConnection;
-			var sqliteFilename = "Therapys.db3";
+			var sqliteFilename = "Therapies.db3";
 			IFolder folder = FileSystem.Current.LocalStorage;
 			string path = PortablePath.Combine(folder.Path.ToString(), sqliteFilename);
 			sqlitConnection = new SQLiteConnection(path);
@@ -81,8 +86,20 @@ namespace MyTherapy
 		/// <returns></returns>
 		public DailyTherapy GetTodayTherapy()
 		{
+			var ss = database.Table<DailyTherapy>();
 			return database.Table<DailyTherapy>().ToList().Where(x => x.Date == DateTime.Now.Date).FirstOrDefault();
 
+		}
+
+		public void DeleteTherapy(DailyTherapy therapy)
+		{
+			database.Delete(therapy);
+		}
+
+		public void UpdateTherapy(DailyTherapy therapy)
+		{
+			database.InsertOrReplace(therapy);
+			//TherapyTakenEvent?.Invoke();
 		}
 		//public List<DailyTherapy> GetTherapys()
 		//{

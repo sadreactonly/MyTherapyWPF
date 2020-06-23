@@ -54,7 +54,10 @@ namespace MyTherapyWPF
 
 		public void AddTherapies(ObservableCollection<DailyTherapy> therapies)
 		{
-			db.Therapies.AddRange(therapies);
+			foreach(var tmp in therapies)
+			{
+				db.Therapies.AddOrUpdate(tmp);
+			}
 			db.SaveChanges();
 			DbUpdatedEvent?.Invoke();
 		}

@@ -3,20 +3,10 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Migration : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.DailyTherapies",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Dose = c.Double(nullable: false),
-                        Date = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
             CreateTable(
                 "dbo.DoctorAppointments",
                 c => new
@@ -27,12 +17,24 @@
                     })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.DailyTherapies",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                        Dose = c.Double(nullable: false),
+                        Date = c.DateTime(nullable: false),
+                        LastModified = c.DateTime(nullable: false),
+                        IsTaken = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
-            DropTable("dbo.DoctorAppointments");
             DropTable("dbo.DailyTherapies");
+            DropTable("dbo.DoctorAppointments");
         }
     }
 }
