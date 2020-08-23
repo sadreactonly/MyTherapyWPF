@@ -30,8 +30,22 @@ namespace MyTherapyWPF
 
 		public delegate void DbUpdatedEventHandler();
 
+		internal DoctorAppointment GetLastDoctorAppointment()
+		{
+			var list = GetAppointments().OrderBy(x => x.Date);
+			return list.Reverse().Where(x => x.INR != 0).FirstOrDefault();
+		}
+
+		internal DoctorAppointment GetNextDoctorAppointment()
+		{
+			var list = GetAppointments().OrderBy(x => x.Date);
+			return list.Where(x=>x.INR == 0).FirstOrDefault();
+		}
+
 		public DbUpdatedEventHandler DbUpdatedEvent;
 
+
+		#region Therapy
 		public DailyTherapy GetDailyTherapy()
 		{
 			return db.Therapies.FirstOrDefault(x => DbFunctions.TruncateTime(x.Date) == DbFunctions.TruncateTime(DateTime.Now));
@@ -68,6 +82,28 @@ namespace MyTherapyWPF
 			db.Therapies.Remove(therapy);
 			db.SaveChanges();
 		}
+		#endregion
 
+		public List<DoctorAppointment> GetAppointments()
+		{
+			return db.DoctorAppointments.ToList();
+		}
+
+		public void AddAppointment(DoctorAppointment appointment)
+		{
+			if (appointment == null)
+				return;
+			
+			db.DoctorAppointments.Add(appointment);
+			
+			db.SaveChanges();
+			DbUpdatedEvent?.Invoke();
+		}
+
+		internal void DeleteAppointment(DoctorAppointment selectedItem)
+		{
+			db.DoctorAppointments.Remove(selectedItem);
+			db.SaveChanges();
+		}
 	}
 }

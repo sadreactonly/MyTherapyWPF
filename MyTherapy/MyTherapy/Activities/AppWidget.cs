@@ -6,8 +6,6 @@ using Android.Widget;
 
 namespace MyTherapy
 {
-
-
 	[BroadcastReceiver(Label = "MyTherapy Widget")]
 	[IntentFilter(new string[] { "android.appwidget.action.APPWIDGET_UPDATE" })]
 	// The "Resource" file has to be all in lower caps
@@ -95,7 +93,4 @@ namespace MyTherapy
 			}
 		}
 	}
-
-
-
 }

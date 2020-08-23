@@ -21,6 +21,9 @@
 			<TabItem Header="Therapies">
 				<control:TherapiesView/>
 			</TabItem>
+			<TabItem Header="Appointments">
+				<control:AppointmentsView/>
+			</TabItem>
 			<TabItem Header="Utilities">
 				<control:CommunicationWindow/>
 			</TabItem>

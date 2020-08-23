@@ -9,6 +9,7 @@ namespace MyTherapyWPF.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            
         }
 
         protected override void Seed(AppDbContext context)

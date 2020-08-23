@@ -19,12 +19,8 @@ namespace MyTherapyWPF.ViewModels
 
         public GeneralWindowViewModel()
 		{
-            LastDoctorAppointment = new DoctorAppointment()
-            {
-                INR = 2.50,
-                Date = DateTime.Now
-            };
-
+            LastDoctorAppointment = dbManager.GetLastDoctorAppointment();
+            NextDoctorAppointment = dbManager.GetNextDoctorAppointment();
             DailyTherapy = dbManager.GetDailyTherapy();
 		}
 

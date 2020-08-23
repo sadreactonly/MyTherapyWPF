@@ -3,13 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:converter="clr-namespace:MyTherapyWPF.Converters"
+			 xmlns:resx="clr-namespace:MyTherapyWPF.Properties"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<converter:DateTimeToDateConverter x:Key="DateTimeToDateConverter"/>
+			<converter:IsTakenBoolToStringConverter x:Key="IsTakenBoolToStringConverter"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
 	<Grid Background="#FFE5E5E5">
-		<TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="26,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-		<DatePicker HorizontalAlignment="Left" Margin="76,79,0,0" VerticalAlignment="Top"/>
-		<DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="269" Margin="26,102,0,0" VerticalAlignment="Top" Width="243"/>
-		<Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="194,77,0,0" VerticalAlignment="Top" Width="75"/>
+		<DatePicker x:Name="startDatePicker" SelectedDate="{Binding StartDate}" HorizontalAlignment="Left" Margin="46,100,0,0" VerticalAlignment="Top" Width="128" Height="32"/>
+		<Button x:Name="button1" Content="Add" Command="{Binding AddCommand}" HorizontalAlignment="Left" Margin="46,144,0,0" VerticalAlignment="Top" Width="75" Height="32"/>
+		<Label x:Name="label1"  Content="{x:Static resx:Resources.START_DATE}" HorizontalAlignment="Left" Margin="46,81,0,0" VerticalAlignment="Top" Width="102"/>
+		<TextBox x:Name="textBox" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" Text="{Binding INR, Mode=TwoWay}" HorizontalAlignment="Left" Height="32" Margin="206,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="75"/>
+
+		<DataGrid x:Name="dataGrid" ItemsSource="{Binding Appointments, Mode=TwoWay}" SelectedItem="{Binding SelectedItem}" SelectedCellsChanged="dataGrid_SelectedCellsChanged" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="428" Margin="46,181,0,0" VerticalAlignment="Top" Width="235">
+			<DataGrid.Columns >
+				<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+				<DataGridTextColumn Header="INR" Binding="{Binding INR}"></DataGridTextColumn>
+				<DataGridTextColumn Header="Date" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+		<Button x:Name="buttonEdit" Content="Edit" Command="{Binding EditCommand}" IsEnabled="False" HorizontalAlignment="Left" Margin="126,144,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonDelete" Content="Delete" Command="{Binding DeleteCommand}" IsEnabled="False" HorizontalAlignment="Left" Margin="206,144,0,0" VerticalAlignment="Top" Width="75"/>
+		<Label  x:Name="label1_Copy"  Content="{x:Static resx:Resources.INR}" HorizontalAlignment="Left" Margin="206,81,0,0" VerticalAlignment="Top" Width="75"/>
 
 	</Grid>
 </UserControl>

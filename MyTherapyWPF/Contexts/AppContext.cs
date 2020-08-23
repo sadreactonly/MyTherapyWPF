@@ -21,8 +21,8 @@ namespace MyTherapyWPF.Contexts
 		}
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			modelBuilder?.Entity<DailyTherapy>().Property(m => m.Id)
-					 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+			//modelBuilder?.Entity<DailyTherapy>().Property(m => m.Id)
+			//		 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 			base.OnModelCreating(modelBuilder);
 		}
 		

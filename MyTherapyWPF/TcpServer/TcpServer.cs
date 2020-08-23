@@ -135,7 +135,6 @@ namespace MyTherapyWPF.TcpServer {
                 if (content.IndexOf("]", StringComparison.CurrentCulture)>-1)
                 {
                     TherapiesReceived?.Invoke(JsonConvert.DeserializeObject<List<DailyTherapy>>(content));
-
                 }
                 else
                 {

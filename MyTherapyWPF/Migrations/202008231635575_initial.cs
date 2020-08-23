@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Migration : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -21,10 +21,9 @@
                 "dbo.DailyTherapies",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         Dose = c.Double(nullable: false),
                         Date = c.DateTime(nullable: false),
-                        LastModified = c.DateTime(nullable: false),
                         IsTaken = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

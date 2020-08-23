@@ -24,5 +24,6 @@ namespace MyTherapyWPF.Views
 			buttonDelete.IsEnabled = true;
 
 		}
+
 	}
 }

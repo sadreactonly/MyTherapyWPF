@@ -133,19 +133,17 @@
     <Compile Include="Converters\ServerConnectionBoolToStringConverter.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="ExcelFileGenerator.cs" />
-    <Compile Include="Migrations\202006230353428_Migration.cs" />
-    <Compile Include="Migrations\202006230353428_Migration.designer.cs">
-      <DependentUpon>202006230353428_Migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006231530510_sksk.cs" />
-    <Compile Include="Migrations\202006231530510_sksk.designer.cs">
-      <DependentUpon>202006231530510_sksk.cs</DependentUpon>
+    <Compile Include="Migrations\202008231635575_initial.cs" />
+    <Compile Include="Migrations\202008231635575_initial.designer.cs">
+      <DependentUpon>202008231635575_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DailyTherapy.cs" />
+    <Compile Include="Models\DoctorAppointment.cs" />
     <Compile Include="TcpServer\TcpServer.cs" />
     <Compile Include="ViewModels\TherapiesViewModel.cs" />
     <Compile Include="ViewModels\AppointmentsViewModel.cs" />
-    <Compile Include="ViewModels\CommunicationVieModel.cs" />
+    <Compile Include="ViewModels\CommunicationViewModel.cs" />
     <Compile Include="ViewModels\GeneralWindowViewModel.cs" />
     <Compile Include="Views\AppointmentsView.xaml.cs">
       <DependentUpon>AppointmentsView.xaml</DependentUpon>
@@ -202,11 +200,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202006230353428_Migration.resx">
-      <DependentUpon>202006230353428_Migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006231530510_sksk.resx">
-      <DependentUpon>202006231530510_sksk.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008231635575_initial.resx">
+      <DependentUpon>202008231635575_initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -232,12 +227,6 @@
     <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{37c7801b-a92d-41c9-a433-30ad06986aab}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
