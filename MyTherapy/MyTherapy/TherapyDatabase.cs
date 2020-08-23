@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using SQLite;
 using PCLStorage;
-using MyTherapyWPF.Common;
-using Android.Telephony;
+using Common.Models;
 
 namespace MyTherapy
 {
 	/// <summary>
 	/// Represent class for database of all therapies.
 	/// </summary>
-	public class TherapyDatabase : ITherapyDatabase
+	public class TherapyDatabase 
 	{
-		SQLiteConnection database;
-		private static TherapyDatabase instance = null;
+		readonly SQLiteConnection database;
+		private static TherapyDatabase _instance;
 		private static readonly object padlock = new object();
 
 		public delegate void TherapyTakenEventHandler();
@@ -34,12 +31,11 @@ namespace MyTherapy
 		/// <returns></returns>
 		public SQLiteConnection GetConnection()
 		{
-			SQLiteConnection sqlitConnection;
 			var sqliteFilename = "Therapies.db3";
 			IFolder folder = FileSystem.Current.LocalStorage;
-			string path = PortablePath.Combine(folder.Path.ToString(), sqliteFilename);
-			sqlitConnection = new SQLiteConnection(path);
-			return sqlitConnection;
+			string path = PortablePath.Combine(folder.Path, sqliteFilename);
+			var sqLiteConnection = new SQLiteConnection(path);
+			return sqLiteConnection;
 		}
 
 		/// <summary>
@@ -50,13 +46,7 @@ namespace MyTherapy
 			get
 			{
 				lock (padlock)
-				{
-					if (instance == null)
-					{
-						instance = new TherapyDatabase();
-					}
-					return instance;
-				}
+					return _instance ??= new TherapyDatabase();
 			}
 		}
 
@@ -66,10 +56,7 @@ namespace MyTherapy
 		/// <returns>
 		/// List of therapies.
 		/// </returns>
-		public List<DailyTherapy> GetTherapies()
-		{
-			return database.Table<DailyTherapy>().ToList();
-		}
+		public List<DailyTherapy> GetTherapies() => database.Table<DailyTherapy>().ToList();
 
 		/// <summary>
 		/// Add all therapies in database.
@@ -81,15 +68,10 @@ namespace MyTherapy
 		}
 
 		/// <summary>
-		/// Gets todays therapy.
+		/// Gets today's therapy.
 		/// </summary>
 		/// <returns></returns>
-		public DailyTherapy GetTodayTherapy()
-		{
-			var ss = database.Table<DailyTherapy>();
-			return database.Table<DailyTherapy>().ToList().Where(x => x.Date == DateTime.Now.Date).FirstOrDefault();
-
-		}
+		public DailyTherapy GetTodayTherapy() => database.Table<DailyTherapy>().FirstOrDefault(x => x.Date == DateTime.Now.Date);
 
 		public void DeleteTherapy(DailyTherapy therapy)
 		{
@@ -99,41 +81,6 @@ namespace MyTherapy
 		public void UpdateTherapy(DailyTherapy therapy)
 		{
 			database.InsertOrReplace(therapy);
-			//TherapyTakenEvent?.Invoke();
 		}
-		//public List<DailyTherapy> GetTherapys()
-		//{
-		//	var list = database.Table<DailyTherapy>().ToList();
-		//	list.Sort((x, y) => y.StartTime.CompareTo(x.StartTime));
-		//	return list;
-		//}
-		//public List<DailyTherapy> GetTherapysFromDay(DateTime date)
-		//{
-		//	var list = database.Table<DailyTherapy>().ToList().Where(x => x.Date == date).ToList();
-		//	list.Sort((x, y) => x.StartTime.CompareTo(y.StartTime));
-		//	return list;
-		//}
-		//public long AddTherapy(DailyTherapy item)
-		//{
-		//	database.Insert(item);
-		//	return item.Id;
-		//}
-		//public long UpdateTherapy(DailyTherapy item)
-		//{
-		//	database.InsertOrReplace(item);
-		//	return item.Id;
-		//}
-		//public int DeleteTherapy(long id)
-		//{
-
-		//	return database.Delete<DailyTherapy>(id);
-
-		//}
-
-		//public int DeleteTherapys()
-		//{
-		//	return database.DeleteAll<DailyTherapy>();
-		//}
-
 	}
 }

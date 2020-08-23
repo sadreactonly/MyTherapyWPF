@@ -1,4 +1,4 @@
-﻿using MyTherapyWPF.Common;
+﻿using Common.Models;
 using System.Collections.Generic;
 
 namespace MyTherapy
@@ -7,7 +7,7 @@ namespace MyTherapy
 	{
 		public List<DailyTherapy> GetTherapies();
 		public void AddTherapySchema(List<DailyTherapy> therapiesSchema);
-		DailyTherapy GetTodayTherapy();
+		public DailyTherapy GetTodayTherapy();
 		void UpdateTherapy(DailyTherapy therapy);
 	}
 }

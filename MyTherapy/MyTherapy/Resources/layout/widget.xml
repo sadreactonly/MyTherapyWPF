@@ -1,0 +1,49 @@
+﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/mtrl_btn_transparent_bg_color"
+    android:id="@+id/widgetBackground"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="230dip"
+			android:layout_height="match_parent">
+		<TextView
+				android:id="@+id/widgetMedium"
+				android:text="Today therapy:"
+				android:textColor="#ffff"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp" />
+		<TextView
+				android:text="0.5"
+				android:textSize="30pt"
+				android:textColor="#ffff"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/textView1" />	
+		<TextView
+				android:id="@+id/widgetSmall"
+				android:text="Last refresh: 00:00"
+				android:textColor="#ffff"
+				android:textSize="5pt"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp" />
+	</LinearLayout>
+	<RelativeLayout
+			android:layout_width="72dip"
+			android:layout_height="fill_parent"
+			>
+		<ImageView
+				android:id="@+id/widgetTakePills"
+				android:src="@drawable/hand"
+				android:layout_width="35dip"
+				android:layout_height="35dip"
+				android:layout_marginLeft="15dip"
+				android:layout_marginTop="20dip" />
+	</RelativeLayout>
+</LinearLayout>

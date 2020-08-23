@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Android.App;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
-using MyTherapyWPF.Common;
+using Common.Models;
 
 namespace MyTherapy
 {
@@ -18,38 +16,25 @@ namespace MyTherapy
 			this.context = context;
 			this.items = items;
 		}
-		public override long GetItemId(int position)
-		{
-			return position;
-		}
-		public override DailyTherapy this[int position]
-		{
-			get { return items[position]; }
-		}
-		public override int Count
-		{
-			get { return items.Count; }
-		}
+
+		public override long GetItemId(int position) => position;
+
+		public override DailyTherapy this[int position] => items[position];
+
+		public override int Count => items.Count; 
+
 		public override View GetView(int position, View convertView, ViewGroup parent)
 		{
 			var item = items[position];
-			View view = convertView;
-			if (view == null) // no view to re-use, create new
-				view = context.LayoutInflater.Inflate(Resource.Layout.schema_list_item, null);
+			var view = convertView ?? context.LayoutInflater.Inflate(Resource.Layout.schema_list_item, null);
 			view.FindViewById<TextView>(Resource.Id.Text1).Text = item.Date.ToShortDateString();
 			view.FindViewById<TextView>(Resource.Id.Text2).Text = item.Dose.ToString();
 			view.FindViewById<TextView>(Resource.Id.Text3).Text = item.IsTaken ? "Taken." : "Not taken.";
 
 			return view;
 		}
-		public void RemoveItemAt(int position)
-		{
-			items.RemoveAt(position);
-		}
+		public void RemoveItemAt(int position) => items.RemoveAt(position);
 
-		internal DailyTherapy GetFromItem(int position)
-		{
-			return items[position];
-		}
+		internal DailyTherapy GetFromItem(int position) => items[position];
 	}
 }

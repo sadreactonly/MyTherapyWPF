@@ -1,11 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
+using Newtonsoft.Json;
+using SQLite;
 
 namespace Common.Models
 {
+	[Table(nameof(DoctorAppointment))]
 	public class DoctorAppointment:INotifyPropertyChanged
 	{
+		[JsonProperty(PropertyName = "id")]
+		[PrimaryKey, AutoIncrement]
 		public int Id { get; set; }
+
 		private double? inr;
 		private DateTime date;
 		/// <summary>
@@ -38,5 +44,6 @@ namespace Common.Models
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
+
 	}
 }

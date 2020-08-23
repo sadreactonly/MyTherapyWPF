@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+	<android.support.design.card.MaterialCardView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_margin="25px"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:id="@+id/materialCardView3" >
+		<LinearLayout
+			android:orientation="horizontal"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/linearLayout2" >
+			<TextView
+				android:text="@string/inr"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:id="@+id/textView4" />
+			<TextView
+				android:text="2.56"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:id="@+id/textView5" />
+		</LinearLayout>
+	</android.support.design.card.MaterialCardView>
+
+		<android.support.design.card.MaterialCardView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_margin="25px"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:id="@+id/materialCardView4" >
+		<LinearLayout
+			android:orientation="horizontal"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/linearLayout3" >
+			<TextView
+				android:text="@string/next_appointment"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:id="@+id/textView5" />
+			<TextView
+				android:text="12.10.2020."
+				android:layout_weight="1"
+				android:gravity="center"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:id="@+id/textView6" />
+		</LinearLayout>
+	</android.support.design.card.MaterialCardView>
+</LinearLayout>

@@ -1,36 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using MyTherapyWPF.Common;
+using Common.Models;
 
 namespace MyTherapy
 {
-	[Activity(Label = "SchemaActivity")]
+	[Activity(Label = "Create therapy schema", Theme = "@style/AppTheme")]
+
 	public class SchemaActivity : Activity
 	{
 		private List<float> dosage = new List<float>();
 		private List<DateTime> dates = new List<DateTime>();
 		private List<DailyTherapy> therapies = new List<DailyTherapy>();
 
-		ITherapyDatabase db = TherapyDatabase.Instance;
-		Button addButton;
-		EditText editText;
-		ListView listView;
-		Button startDateButton;
-		Button endDateButton;
-		Button saveSchemaButton;
+		private TherapyDatabase db = TherapyDatabase.Instance;
+		private Button addButton;
+		private ListView listView;
+		private Button startDateButton;
+		private Button endDateButton;
+		private Button saveSchemaButton;
 
-		DateTime startDate = DateTime.MinValue;
-		DateTime endDate = DateTime.MinValue;
-
+		private DateTime startDate = DateTime.MinValue;
+		private DateTime endDate = DateTime.MinValue;
+		private Spinner spinner;
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
@@ -39,7 +34,6 @@ namespace MyTherapy
 
 			addButton = FindViewById<Button>(Resource.Id.btnAdd);
 			addButton = FindViewById<Button>(Resource.Id.btnAdd);
-			editText = FindViewById<EditText>(Resource.Id.edtName);
 			listView = FindViewById<ListView>(Resource.Id.listView);
 			startDateButton = FindViewById<Button>(Resource.Id.startDateButton);
 			endDateButton = FindViewById<Button>(Resource.Id.EndDateButton);
@@ -49,25 +43,21 @@ namespace MyTherapy
 			endDateButton.Click += EndDateButton_Click;
 			addButton.Click += AddButton_Click;
 			saveSchemaButton.Click += SaveSchemaButton_Click;
-			editText.TextChanged += EditText_TextChanged;
 
 			addButton.Enabled = false;
 			saveSchemaButton.Enabled = false;
 
-		}
+			spinner = FindViewById<Spinner>(Resource.Id.spinner1);
 
-		private void EditText_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
-		{
-			if(e.Text.Count()>0)
-			{
-				addButton.Enabled = true;
-			}
-			else
-			{
-				addButton.Enabled = false;
-			}
-		}
+			spinner.ItemSelected += Spinner_ItemSelected;
+			//ArrayAdapter adapterSpinner = ArrayAdapter.CreateFromResource(this, Resource.Array.therapy_dosage_array, Android.Resource.Layout.SimpleSpinnerItem);
+			var adapterSpinner = new ArrayAdapter<double>(this, Android.Resource.Layout.SimpleSpinnerItem,
+				new double[9] {0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2});
+			adapterSpinner.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			spinner.Adapter = adapterSpinner;
 
+		}
+		private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e) => addButton.Enabled = true;
 
 		/// <summary>
 		/// Create therapy schema based on dosage schema and dates.
@@ -100,7 +90,25 @@ namespace MyTherapy
 		#region Buttons
 		private void SaveSchemaButton_Click(object sender, EventArgs e)
 		{
-			CreateScheme();
+			var alert = new Android.Support.V7.App.AlertDialog.Builder(this);
+
+			alert.SetTitle("Save schema");
+			alert.SetMessage("Do you want to save schema?");
+
+			alert.SetPositiveButton("Yes", (senderAlert, args) =>
+			{
+				CreateScheme();
+				Finish();
+			});
+
+			alert.SetNegativeButton("No", (senderAlert, args) =>
+			{
+
+			});
+
+			Dialog dialog = alert.Create();
+			dialog.Show();
+
 		}
 
 		private void EndDateButton_Click(object sender, EventArgs e)
@@ -119,10 +127,9 @@ namespace MyTherapy
 
 		private void AddButton_Click(object sender, EventArgs e)
 		{
-			float dose = -1;
-			float.TryParse(editText.Text, out dose);
+			float.TryParse(spinner.SelectedItem.ToString(), out var dose);
 
-			if (dose != -1)
+			if (dose >= 0)
 			{
 				dosage.Add(dose);
 			}

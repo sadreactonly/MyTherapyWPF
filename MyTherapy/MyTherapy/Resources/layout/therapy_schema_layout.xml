@@ -3,18 +3,23 @@
     android:orientation="vertical"  
     android:layout_width="match_parent"  
     android:layout_height="match_parent">  
-    <EditText  
-        android:inputType="numberDecimal"
-        android:hint="Enter your medicine dose"  
-        android:layout_width="match_parent"  
-        android:layout_height="wrap_content"  
-        android:id="@+id/edtName"/>  
- 
+  	<android.support.design.card.MaterialCardView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_margin="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/cardView1">
     <LinearLayout  
         android:layout_width="match_parent"  
         android:layout_height="wrap_content"  
-        android:orientation="horizontal">  
-        <Button  
+        android:orientation="horizontal">
+	    <Spinner
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="10"
+		    android:id="@+id/spinner1" />  
+	    <Button  
             android:id="@+id/btnAdd"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
@@ -35,6 +40,22 @@
             android:enabled="false"
             android:layout_weight="1"/>  
     </LinearLayout>  
+    </android.support.design.card.MaterialCardView>
+	
+    <android.support.design.card.MaterialCardView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_margin="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/cardView2">
+        <ListView  
+		android:minWidth="25px"  
+		android:minHeight="50px"  
+		android:layout_width="match_parent"  
+		android:layout_height="wrap_content"  
+		android:id="@+id/listView"/>  
+
       <LinearLayout  
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"  
@@ -44,13 +65,13 @@
             android:id="@+id/startDateButton"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="Start"  
+            android:text="Set start date"  
             android:layout_weight="1"/>  
         <Button  
             android:id="@+id/EndDateButton"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="End"  
+            android:text="Set end date"  
             android:layout_weight="1"/> 
         <Button  
             android:id="@+id/saveSchemaButton"  
@@ -59,10 +80,6 @@
             android:text="Save"  
             android:layout_weight="1"/>  
     </LinearLayout>
-    <ListView  
-        android:minWidth="25px"  
-        android:minHeight="25px"  
-        android:layout_width="match_parent"  
-        android:layout_height="match_parent"  
-        android:id="@+id/listView"/>  
+</android.support.design.card.MaterialCardView>
+
 </LinearLayout>  

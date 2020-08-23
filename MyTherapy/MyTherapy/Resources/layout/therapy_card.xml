@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+	<android.support.design.card.MaterialCardView
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_margin="25px"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:id="@+id/cardView1">
+		<LinearLayout
+			android:id="@+id/todayTherapyLayout"
+			android:layout_width="match_parent"
+			android:layout_height="100dp"
+			android:orientation="horizontal">
+			<TextView
+				android:text="@string/today_therapy"
+				android:gravity="center"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/textView1"
+				android:layout_marginLeft="@dimen/abc_dropdownitem_text_padding_left"
+				android:layout_weight="1"/>
+			<TextView
+				android:text="0"
+				android:gravity="center"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:id="@+id/textView2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"/>
+			<android.support.design.button.MaterialButton
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:text="@string/take"
+				android:layout_margin="5dp"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+				android:id="@+id/materialButton1" />
+
+		</LinearLayout>
+	</android.support.design.card.MaterialCardView>
+
+</LinearLayout>
