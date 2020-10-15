@@ -12,11 +12,11 @@ namespace MyTherapy
 
 	public class SchemaActivity : Activity
 	{
+		private AppManager appManager;
 		private List<float> dosage = new List<float>();
 		private List<DateTime> dates = new List<DateTime>();
 		private List<DailyTherapy> therapies = new List<DailyTherapy>();
 
-		private TherapyDatabase db = TherapyDatabase.Instance;
 		private Button addButton;
 		private ListView listView;
 		private Button startDateButton;
@@ -26,6 +26,7 @@ namespace MyTherapy
 		private DateTime startDate = DateTime.MinValue;
 		private DateTime endDate = DateTime.MinValue;
 		private Spinner spinner;
+
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
@@ -56,6 +57,8 @@ namespace MyTherapy
 			adapterSpinner.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			spinner.Adapter = adapterSpinner;
 
+			appManager = new AppManager();
+
 		}
 		private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e) => addButton.Enabled = true;
 
@@ -80,11 +83,11 @@ namespace MyTherapy
 
 			for (int i=0; i < dates.Count; i++)
 			{
-				var therapy = new DailyTherapy() { Date = dates[i], Dose = newList[i] };
+				var therapy = new DailyTherapy() {Guid = Guid.NewGuid(), Date = dates[i], Dose = newList[i] };
 				therapies.Add(therapy);
 			}
 
-			db.AddTherapySchema(therapies);
+			appManager.AddTherapies(therapies);
 		}
 
 		#region Buttons

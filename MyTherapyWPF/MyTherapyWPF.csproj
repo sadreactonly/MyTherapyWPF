@@ -126,6 +126,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviours\TextBoxInputBehavior.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Contexts\AppContext.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
@@ -137,14 +138,29 @@
     <Compile Include="Migrations\202008231635575_initial.designer.cs">
       <DependentUpon>202008231635575_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009041516058_NewMigrationWithGuid.cs" />
+    <Compile Include="Migrations\202009041516058_NewMigrationWithGuid.designer.cs">
+      <DependentUpon>202009041516058_NewMigrationWithGuid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009080105382_newMig.cs" />
+    <Compile Include="Migrations\202009080105382_newMig.designer.cs">
+      <DependentUpon>202009080105382_newMig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009080116220_newMig1.cs" />
+    <Compile Include="Migrations\202009080116220_newMig1.designer.cs">
+      <DependentUpon>202009080116220_newMig1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AppointmentChanges.cs" />
     <Compile Include="Models\DailyTherapy.cs" />
     <Compile Include="Models\DoctorAppointment.cs" />
     <Compile Include="TcpServer\TcpServer.cs" />
+    <Compile Include="ViewModels\AppointmentEditViewModel.cs" />
     <Compile Include="ViewModels\TherapiesViewModel.cs" />
     <Compile Include="ViewModels\AppointmentsViewModel.cs" />
     <Compile Include="ViewModels\CommunicationViewModel.cs" />
     <Compile Include="ViewModels\GeneralWindowViewModel.cs" />
+    <Compile Include="ViewModels\TherapyEditViewModel.cs" />
     <Compile Include="Views\AppointmentsView.xaml.cs">
       <DependentUpon>AppointmentsView.xaml</DependentUpon>
     </Compile>
@@ -156,6 +172,12 @@
     </Compile>
     <Compile Include="Views\TherapiesView.xaml.cs">
       <DependentUpon>TherapiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppointmentEditWindow.xaml.cs">
+      <DependentUpon>AppointmentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TherapyEditWindow.xaml.cs">
+      <DependentUpon>TherapyEditWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -185,6 +207,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AppointmentEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TherapyEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -202,6 +232,15 @@
     </Compile>
     <EmbeddedResource Include="Migrations\202008231635575_initial.resx">
       <DependentUpon>202008231635575_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009041516058_NewMigrationWithGuid.resx">
+      <DependentUpon>202009041516058_NewMigrationWithGuid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009080105382_newMig.resx">
+      <DependentUpon>202009080105382_newMig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009080116220_newMig1.resx">
+      <DependentUpon>202009080116220_newMig1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

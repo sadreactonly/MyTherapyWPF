@@ -69,8 +69,9 @@
     <Compile Include="Activities\AppWidget.cs" />
     <Compile Include="Activities\InrActivity.cs" />
     <Compile Include="Adapters\DoctorAppointmentsAdapter.cs" />
+    <Compile Include="AppManager.cs" />
+    <Compile Include="ChangesDatabase.cs" />
     <Compile Include="DoctorAppointmentDatabase.cs" />
-    <Compile Include="ITherapyDatabase.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,21 +15,18 @@ using Android.Widget;
 using Common.Models;
 using Newtonsoft.Json;
 using MyTherapy.Activities;
-using MyAppointment;
 
 namespace MyTherapy
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        TherapyDatabase db = TherapyDatabase.Instance;
-        DoctorAppointmentDatabase inrDatabase = DoctorAppointmentDatabase.Instance;
         TextView todayTherapyText;
         MaterialButton takeTherapyButton;
-        DailyTherapy todayTherapy;
         TextView lastINR;
         TextView nextAppointment;
 
+        private AppManager appManager; 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,7 +37,6 @@ namespace MyTherapy
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-
             MaterialButton connect = FindViewById<MaterialButton>(Resource.Id.button1);
 			connect.Click += Connect_Click;
            
@@ -50,31 +46,30 @@ namespace MyTherapy
             nextAppointment = FindViewById<TextView>(Resource.Id.textView6);
 
             takeTherapyButton.Click += TakeTherapyButton_Click;
-            db.TherapyTakenEvent += TherapyTaken;
-            todayTherapy = db.GetTodayTherapy();
+
+            appManager = new AppManager();
+			appManager.TherapyTaken += AppManager_TherapyTaken;       
         }
 
-
-		private void TherapyTaken()
+		private void AppManager_TherapyTaken(object sender, EventArgs e)
 		{
-
-		}
+            takeTherapyButton.Text = "Taken";
+            takeTherapyButton.Enabled = false;
+        }
 
 		private void TakeTherapyButton_Click(object sender, EventArgs e)
 		{
+            var todayTherapy = appManager.GetTodayTherapy();
             todayTherapy.IsTaken = true;
-            db.UpdateTherapy(todayTherapy);
-           // adapter.NotifyDataSetChanged();
-            takeTherapyButton.Text = "Taken";
-            takeTherapyButton.Enabled = false;
-
+            appManager.TakeTherapy(todayTherapy);
         }
 
         private void Connect_Click(object sender, EventArgs e)
 		{
-			Serialize(db.GetTherapies());
+			Serialize(appManager.GetTherapyChanges());
 		}
-		private static void Serialize(List<DailyTherapy> therapies)
+		
+        private void Serialize(List<TherapyChanges> therapies)
 		{
 
 			try
@@ -83,12 +78,13 @@ namespace MyTherapy
 				tcpClient.Connect("192.168.0.132", 11000);
 
 				Stream stm = tcpClient.GetStream();
-
+                SetChanges(therapies);
                 string output = JsonConvert.SerializeObject(therapies);
                 byte[] dataBytes = Encoding.Default.GetBytes(output);
 
                 stm.Write(dataBytes, 0, dataBytes.Length);
                 tcpClient.Close();
+                appManager.DeleteTherpyChanges();
 			}
 			catch (Exception e)
 			{
@@ -96,6 +92,13 @@ namespace MyTherapy
 			}
 		}
 
+		private void SetChanges(List<TherapyChanges> therapies)
+		{
+			foreach(var tmp in therapies)
+			{
+                tmp.Therapy = appManager.GetTherapyById(tmp.TherapyGuid);
+            }
+		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -124,27 +127,15 @@ namespace MyTherapy
 
         protected override void OnResume()
         {
-            var allTherapies = db.GetTherapies();
-            var lastAppointment = inrDatabase.GetLastAppointment();
-            lastINR.Text = lastAppointment.INR.ToString();
-            nextAppointment.Text = inrDatabase.GetNextAppointment().Date.ToShortDateString();
-            todayTherapy = allTherapies.FirstOrDefault(x => x.Date.Date == DateTime.Now.Date);
-            if (todayTherapy != null)
-			{
-                todayTherapyText.Text = todayTherapy.Dose.ToString(CultureInfo.InvariantCulture);
-                takeTherapyButton.Enabled = !todayTherapy.IsTaken;
-            }
-            else
-			{
-                todayTherapyText.Text = "None.";
-                takeTherapyButton.Enabled = false;
-            }
+			appManager.SetAllData(out string lastInrText, out string nextAppointmentText, out string todayTherapyTextText, out bool takeTherapyButtonEnabled);
 
-           
+			lastINR.Text = lastInrText;
+            nextAppointment.Text = nextAppointmentText;
+            todayTherapyText.Text = todayTherapyTextText;
+            takeTherapyButton.Enabled = !takeTherapyButtonEnabled;
+
             base.OnResume();
-
         }
-
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

@@ -15,14 +15,11 @@ namespace MyTherapy
 		private static TherapyDatabase _instance;
 		private static readonly object padlock = new object();
 
-		public delegate void TherapyTakenEventHandler();
-
-		public TherapyTakenEventHandler TherapyTakenEvent;
-
 		public TherapyDatabase()
 		{
 			database = GetConnection();
 			database.CreateTable<DailyTherapy>();
+
 		}
 
 		/// <summary>
@@ -31,7 +28,7 @@ namespace MyTherapy
 		/// <returns></returns>
 		public SQLiteConnection GetConnection()
 		{
-			var sqliteFilename = "Therapies.db3";
+			var sqliteFilename = "TherapiesDb.db3";
 			IFolder folder = FileSystem.Current.LocalStorage;
 			string path = PortablePath.Combine(folder.Path, sqliteFilename);
 			var sqLiteConnection = new SQLiteConnection(path);
@@ -67,12 +64,6 @@ namespace MyTherapy
 			database.InsertAll(therapiesSchema);
 		}
 
-		/// <summary>
-		/// Gets today's therapy.
-		/// </summary>
-		/// <returns></returns>
-		public DailyTherapy GetTodayTherapy() => database.Table<DailyTherapy>().FirstOrDefault(x => x.Date == DateTime.Now.Date);
-
 		public void DeleteTherapy(DailyTherapy therapy)
 		{
 			database.Delete(therapy);
@@ -81,6 +72,11 @@ namespace MyTherapy
 		public void UpdateTherapy(DailyTherapy therapy)
 		{
 			database.InsertOrReplace(therapy);
+		}
+
+		internal DailyTherapy GetTherapy(Guid id)
+		{
+			return database.Table<DailyTherapy>().FirstOrDefault(x => x.Guid == id);
 		}
 	}
 }

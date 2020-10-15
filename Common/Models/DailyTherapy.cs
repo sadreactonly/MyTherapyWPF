@@ -12,11 +12,12 @@ namespace Common.Models
 		private DateTime date;
 		private bool isTaken;
 
-		[JsonProperty(PropertyName = "id")]
+		[JsonIgnore]
 		[PrimaryKey, AutoIncrement]
-		//[Key]
 		public int Id { get; set; }
 
+		[JsonProperty(PropertyName = "guid")]
+		public Guid Guid { get; set; }
 
 		/// <summary>
 		/// Gets or sets daily dosage of therapy.
@@ -59,6 +60,16 @@ namespace Common.Models
 			}
 		}
 
+		public object Clone()
+		{
+			return new DailyTherapy()
+			{
+				Id = this.Id,
+				Guid = this.Guid,
+				IsTaken = this.IsTaken
+				
+			};
+		}
 		public event PropertyChangedEventHandler PropertyChanged;
 		private void OnPropertyChanged(string propertyName)
 		{

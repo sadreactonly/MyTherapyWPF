@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Input;
 using System.ComponentModel;
 using MyTherapyWPF.Commands;
 using System.Collections.ObjectModel;
 using Common.Models;
 using System.Windows;
-using System.Security.RightsManagement;
-using System.Windows.Navigation;
+using MyTherapyWPF.Views;
 
 namespace MyTherapyWPF.ViewModels
 {
@@ -21,6 +19,9 @@ namespace MyTherapyWPF.ViewModels
 		private string inr;
 		private ObservableCollection<DoctorAppointment> appointments;
 		private DateTime startDate = DateTime.Now;
+		private bool deleteIsEnabled = false;
+		private DoctorAppointment selectedItem;
+		private bool editIsEnabled = false;
 
 		public AppointmentsViewModel()
 		{
@@ -29,7 +30,34 @@ namespace MyTherapyWPF.ViewModels
 			Appointments = new ObservableCollection<DoctorAppointment>(DatabaseManager.GetAppointments());
 		}
 
-		public DoctorAppointment SelectedItem { get; set; }
+		public DoctorAppointment SelectedItem 
+		{
+			get { return selectedItem; }
+			set
+			{
+				selectedItem = value;
+				DeleteIsEnabled = true;
+				EditIsEnabled = true;
+			}
+		}
+		public bool DeleteIsEnabled
+		{
+			get => deleteIsEnabled;
+			set
+			{
+				deleteIsEnabled = value;
+				OnPropertyChanged(nameof(DeleteIsEnabled));
+			}
+		}
+		public bool EditIsEnabled
+		{
+			get => editIsEnabled;
+			set
+			{
+				editIsEnabled = value;
+				OnPropertyChanged(nameof(EditIsEnabled));
+			}
+		}
 		public DateTime StartDate
 		{
 			get => startDate;
@@ -37,7 +65,6 @@ namespace MyTherapyWPF.ViewModels
 			{
 				startDate = value;
 				OnPropertyChanged(nameof(StartDate));
-
 			}
 		}
 		public string INR
@@ -85,10 +112,19 @@ namespace MyTherapyWPF.ViewModels
 		{
 			DatabaseManager.DeleteAppointment(SelectedItem);
 			Appointments.Remove(SelectedItem);
+			
+			DeleteIsEnabled = false;
+			EditIsEnabled = false;
+			SelectedItem = null;
 		}
 		private void EditAction(object obj)
 		{
-			throw new NotImplementedException();
+			AppointmentEditWindow win = new AppointmentEditWindow();
+			AppointmentEditViewModel aevm = new AppointmentEditViewModel(SelectedItem);
+			aevm.Saved += delegate (object o, EventArgs e) { win.Close(); };
+			win.DataContext = aevm;
+			win.Show();
+
 		}
 		private void RefreshGui()
 		{

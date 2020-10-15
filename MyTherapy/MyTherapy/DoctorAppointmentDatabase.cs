@@ -65,15 +65,7 @@ namespace MyAppointment
 		/// </returns>
 		public List<DoctorAppointment> GetAppointments() => database.Table<DoctorAppointment>().OrderBy(x => x.Date).ToList();
 
-		/// <summary>
-		/// Add all therapies in database.
-		/// </summary>
-		/// <param name="therapiesSchema"></param>
-		public void AddAppointmentSchema(List<DoctorAppointment> therapiesSchema)
-		{
-			database.InsertAll(therapiesSchema);
-		}
-
+	
 		/// <summary>
 		/// Gets today's therapy.
 		/// </summary>

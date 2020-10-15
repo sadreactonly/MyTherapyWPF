@@ -44,6 +44,12 @@ namespace MyTherapyWPF
 
 		public DbUpdatedEventHandler DbUpdatedEvent;
 
+		internal void UpdateAppointment(DoctorAppointment doctorAppointment)
+		{
+			db.DoctorAppointments.AddOrUpdate(doctorAppointment);
+			DbUpdatedEvent?.Invoke();
+		}
+
 
 		#region Therapy
 		public DailyTherapy GetDailyTherapy()
@@ -69,17 +75,23 @@ namespace MyTherapyWPF
 		{
 			if (therapies == null)
 				return;
-			foreach(var tmp in therapies)
-			{
-				db.Therapies.AddOrUpdate(tmp);
-			}
+			db.Therapies.AddRange(therapies);
 			db.SaveChanges();
 			DbUpdatedEvent?.Invoke();
 		}
 
 		public void DeleteTherapy(DailyTherapy therapy)
 		{
-			db.Therapies.Remove(therapy);
+			var dbTherapy = db.Therapies.Where(x => x.Guid == therapy.Guid).First();
+
+			db.Therapies.Remove(dbTherapy);
+			db.SaveChanges();
+		}
+		public void DeleteTherapy(Guid guid)
+		{
+			var dbTherapy = db.Therapies.Where(x => x.Guid == guid).First();
+
+			db.Therapies.Remove(dbTherapy);
 			db.SaveChanges();
 		}
 		#endregion
@@ -104,6 +116,21 @@ namespace MyTherapyWPF
 		{
 			db.DoctorAppointments.Remove(selectedItem);
 			db.SaveChanges();
+		}
+
+		internal void AddTherapy(DailyTherapy therapy)
+		{
+			db.Therapies.Add(therapy);
+			db.SaveChanges();
+			DbUpdatedEvent?.Invoke();
+		}
+
+		internal void UpdateTherapy(DailyTherapy therapy)
+		{
+			var tmp = db.Therapies.Where(x => x.Guid == therapy.Guid).First();
+			tmp.IsTaken = therapy.IsTaken;
+			db.Therapies.AddOrUpdate(tmp);
+			DbUpdatedEvent?.Invoke();
 		}
 	}
 }

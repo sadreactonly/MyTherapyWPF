@@ -54,9 +54,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{37c7801b-a92d-41c9-a433-30ad06986aab}</Project>
-      <Name>Common</Name>
+    <ProjectReference Include="..\MyTherapyWPF\MyTherapyWPF.csproj">
+      <Project>{3D895EFE-3CBC-45BE-A320-61709A3DB792}</Project>
+      <Name>MyTherapyWPF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

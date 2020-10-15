@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTherapy", "MyTherapy\MyTherapy\MyTherapy.csproj", "{7772A47B-0F11-4F88-9F71-43347EA4DB09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTestClient", "SimpleTestClient\SimpleTestClient.csproj", "{B075C24C-2483-4FEE-9147-A498D3FF1DBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{7772A47B-0F11-4F88-9F71-43347EA4DB09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7772A47B-0F11-4F88-9F71-43347EA4DB09}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7772A47B-0F11-4F88-9F71-43347EA4DB09}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B075C24C-2483-4FEE-9147-A498D3FF1DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B075C24C-2483-4FEE-9147-A498D3FF1DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B075C24C-2483-4FEE-9147-A498D3FF1DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B075C24C-2483-4FEE-9147-A498D3FF1DBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

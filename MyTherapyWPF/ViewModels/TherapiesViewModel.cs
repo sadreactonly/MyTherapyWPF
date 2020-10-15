@@ -6,6 +6,8 @@ using MyTherapyWPF.Commands;
 using System.Collections.ObjectModel;
 using Common.Models;
 using System.Windows;
+using MyTherapyWPF.Views;
+using System.Globalization;
 
 namespace MyTherapyWPF.ViewModels
 {
@@ -18,15 +20,47 @@ namespace MyTherapyWPF.ViewModels
 		private RelayCommand takeCommand;
 		private RelayCommand editCommand;
 		private RelayCommand deleteCommand;
+		private bool deleteIsEnabled = false;
+		private bool takeIsEnabled = false;
+		private bool editIsEnabled = false;
+		private ObservableCollection<DailyTherapy> therapies;
+		private ObservableCollection<decimal> schematic;
+		private string dosage = "0";
+		private DailyTherapy selectedItem;
 
-		private ObservableCollection<DailyTherapy> therapies; 
-
-		public DailyTherapy SelectedItem { get; set; }
-		public string Dosage { get; set; }
+		public DailyTherapy SelectedItem
+		{
+			get { return selectedItem; }
+			set
+			{
+				selectedItem = value;
+				TakeIsEnabled = true;
+				DeleteIsEnabled = true;
+				EditIsEnabled = true;
+			}
+		}
 		public DateTime StartDate { get; set; } = DateTime.Now;
 		public DateTime EndDate { get; set; } = DateTime.Now;
 
-		public ObservableCollection<double> Schematic { get; set; }
+		public string Dosage
+		{
+			get =>  dosage;
+			set
+			{
+				dosage = value;
+				OnPropertyChanged(nameof(Dosage));
+			}
+		}
+
+		public ObservableCollection<decimal> Schematic
+		{
+			get => schematic;
+			set
+			{
+				schematic = value;
+				OnPropertyChanged(nameof(Schematic));
+			}
+		}
 		public ObservableCollection<DailyTherapy> Therapies
 		{
 			get => therapies;
@@ -41,10 +75,42 @@ namespace MyTherapyWPF.ViewModels
 		{
 			DatabaseManager = DatabaseManager.Instance;
 			DatabaseManager.DbUpdatedEvent += RefreshGui;
-			Schematic = new ObservableCollection<double>();
+			Schematic = new ObservableCollection<decimal>();
 			Therapies = new ObservableCollection<DailyTherapy>(DatabaseManager.GetTherapies());
 		}
 
+		public bool DeleteIsEnabled
+		{
+			get => deleteIsEnabled;
+			set
+			{
+				deleteIsEnabled = value;
+				OnPropertyChanged(nameof(DeleteIsEnabled));
+
+			}
+		}
+
+		public bool EditIsEnabled
+		{
+			get => editIsEnabled;
+			set
+			{
+				editIsEnabled = value;
+				OnPropertyChanged(nameof(EditIsEnabled));
+
+			}
+		}
+
+		public bool TakeIsEnabled
+		{
+			get => takeIsEnabled;
+			set
+			{
+				takeIsEnabled = value;
+				OnPropertyChanged(nameof(TakeIsEnabled));
+
+			}
+		}
 
 		public ICommand AddCommand => addCommand ?? (addCommand = new RelayCommand(SaveCommandAction));
 
@@ -59,15 +125,21 @@ namespace MyTherapyWPF.ViewModels
 		private void TakeAction(object obj)
 		{
 			if (SelectedItem != null)
+			{
 				DatabaseManager.TakeTherapy(SelectedItem);
+				TakeIsEnabled = false;
+			}
+				
 		}
 		private void GenerateCommandAction(object obj)
 		{
 			CreateScheme();
+			Schematic.Clear();
+			Dosage = "0";
 		}
 		private void SaveCommandAction(object obj)
 		{
-			if (double.TryParse(Dosage, out double dose))
+			if (decimal.TryParse(Dosage,NumberStyles.Any,CultureInfo.InvariantCulture, out decimal dose))
 				Schematic.Add(dose);
 			else
 				MessageBox.Show("Wrong format!");
@@ -76,11 +148,20 @@ namespace MyTherapyWPF.ViewModels
 		{
 			DatabaseManager.DeleteTherapy(SelectedItem);
 			Therapies.Remove(SelectedItem);
+
+			//if (Therapies.Count == 0)
+			DeleteIsEnabled = false;
+			EditIsEnabled = false;
 		}
 		private void EditAction(object obj)
 		{
-			throw new NotImplementedException();
+			TherapyEditWindow win = new TherapyEditWindow();
+			TherapyEditViewModel tevm = new TherapyEditViewModel(SelectedItem);
+			tevm.Saved += delegate (object sender, EventArgs e) { win.Close(); };
+			win.DataContext = tevm;
+			win.Show();	
 		}
+
 
 		private void RefreshGui()
 		{
@@ -98,7 +179,7 @@ namespace MyTherapyWPF.ViewModels
 
 			int x = dates.Count / Schematic.Count + 1;
 
-			var newList = new List<double>();
+			var newList = new List<decimal>();
 
 			for (int i = 0; i < x; i++)
 			{

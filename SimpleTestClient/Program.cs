@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
-using MyTherapyWPF.Common;
+using Common.Models;
 using Newtonsoft.Json;
 
 namespace SimpleTestClient
@@ -18,18 +18,18 @@ namespace SimpleTestClient
 	{
 		static void Main(string[] args)
 		{
-			List<DailyTherapy> therapies = GetList();
+			List<TherapyChanges> therapies = GetList();
 			NewMethod(therapies);
 		}
 
-		private static void NewMethod(List<DailyTherapy> therapies)
+		private static void NewMethod(List<TherapyChanges> therapies)
 		{
 			try
 			{
 				TcpClient tcpclnt = new TcpClient();
 				Console.WriteLine("Connecting.....");
 
-				tcpclnt.Connect("192.168.0.132", 11000);
+				tcpclnt.Connect("127.0.0.1", 2104);
 				
 				Stream stm = tcpclnt.GetStream();
 				//BinaryFormatter bf = new BinaryFormatter();
@@ -51,9 +51,9 @@ namespace SimpleTestClient
 			}
 		}
 
-		private static List<DailyTherapy> GetList()
+		private static List<TherapyChanges> GetList()
 		{
-			return new List<DailyTherapy>()
+			var x =  new List<DailyTherapy>()
 			{
 				new DailyTherapy()
 				{
@@ -72,6 +72,19 @@ namespace SimpleTestClient
 				},
 
 			};
+
+			List<TherapyChanges> t = new List<TherapyChanges>();
+			foreach (var tmp in x)
+			{
+				var tt = new TherapyChanges()
+				{
+					Operation = Operation.Add,
+					Therapy = tmp
+				};
+				t.Add(tt);
+			};
+
+			return t;
 		}
 	}
 }

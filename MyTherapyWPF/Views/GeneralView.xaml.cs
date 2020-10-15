@@ -15,5 +15,10 @@ namespace MyTherapyWPF.Views
 			GeneralWindowViewModel generalWindowViewModel = new GeneralWindowViewModel();
 			this.DataContext = generalWindowViewModel;
 		}
+
+		private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+		{
+			this.DataContext = new GeneralWindowViewModel();
+		}
 	}
 }

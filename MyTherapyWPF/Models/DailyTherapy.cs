@@ -8,20 +8,22 @@ namespace Common.Models
 {
 	public class DailyTherapy : INotifyPropertyChanged
 	{
-		private double dose;
+		private decimal dose;
 		private DateTime date;
 		private bool isTaken;
 
-		[JsonProperty(PropertyName = "id")]
+		[JsonIgnore]
 		[Key]
 		public int Id { get; set; }
 
+
+		public Guid Guid{get;set;}
 
 		/// <summary>
 		/// Gets or sets daily dosage of therapy.
 		/// </summary>
 		[JsonProperty(PropertyName="dose")]
-		public double Dose
+		public decimal Dose
 		{
 			get => dose;
 			set

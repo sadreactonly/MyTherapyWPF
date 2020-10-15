@@ -84,9 +84,25 @@ namespace MyTherapyWPF.ViewModels
 			service.StartListening();
 		}
 
-		private void TherapiesReceived(List<DailyTherapy> dailyTherapies)
+		private void TherapiesReceived(List<TherapyChanges> therapyChanges)
 		{
-			db.AddTherapies(new ObservableCollection<DailyTherapy>(dailyTherapies)); 
+			var x = therapyChanges;
+
+			foreach(var tmp in therapyChanges)
+			{
+				switch (tmp.Operation)
+				{
+					case Operation.Add:
+						db.AddTherapy(tmp.Therapy);
+						break;
+					case Operation.Update:
+						db.UpdateTherapy(tmp.Therapy);
+						break;
+					case Operation.Delete:
+						db.DeleteTherapy(tmp.TherapyGuid);
+						break;
+				}
+			}	
 		}
 
 		private void Connected()

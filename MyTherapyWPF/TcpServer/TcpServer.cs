@@ -28,7 +28,7 @@ namespace MyTherapyWPF.TcpServer {
         private static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
 
         public delegate void StartedEventHandler();
-        public delegate void OnReceivedEventHandler(List<DailyTherapy> dailyTherapies);
+        public delegate void OnReceivedEventHandler(List<TherapyChanges> dailyTherapies);
 
         public StartedEventHandler ConnectedEvent;
         public OnReceivedEventHandler TherapiesReceived;
@@ -37,9 +37,8 @@ namespace MyTherapyWPF.TcpServer {
 
         public  void StartListening()
         {
- 
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[9];
+            //("192.168.0.132", 11000)
+            IPAddress ipAddress = IPAddress.Parse("192.168.0.132");
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
             listener = new Socket(ipAddress.AddressFamily,
@@ -134,7 +133,7 @@ namespace MyTherapyWPF.TcpServer {
 
                 if (content.IndexOf("]", StringComparison.CurrentCulture)>-1)
                 {
-                    TherapiesReceived?.Invoke(JsonConvert.DeserializeObject<List<DailyTherapy>>(content));
+                    TherapiesReceived?.Invoke(JsonConvert.DeserializeObject<List<TherapyChanges>>(content));
                 }
                 else
                 {

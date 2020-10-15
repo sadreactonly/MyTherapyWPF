@@ -33,8 +33,8 @@
 				<DataGridTextColumn Header="Date" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
 			</DataGrid.Columns>
 		</DataGrid>
-		<Button x:Name="buttonEdit" Content="Edit" Command="{Binding EditCommand}" IsEnabled="False" HorizontalAlignment="Left" Margin="126,144,0,0" VerticalAlignment="Top" Width="75"/>
-		<Button x:Name="buttonDelete" Content="Delete" Command="{Binding DeleteCommand}" IsEnabled="False" HorizontalAlignment="Left" Margin="206,144,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonEdit" Content="Edit" Command="{Binding EditCommand}" IsEnabled="{Binding EditIsEnabled}" HorizontalAlignment="Left" Margin="126,144,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonDelete" Content="Delete" Command="{Binding DeleteCommand}" IsEnabled="{Binding DeleteIsEnabled}" HorizontalAlignment="Left" Margin="206,144,0,0" VerticalAlignment="Top" Width="75"/>
 		<Label  x:Name="label1_Copy"  Content="{x:Static resx:Resources.INR}" HorizontalAlignment="Left" Margin="206,81,0,0" VerticalAlignment="Top" Width="75"/>
 
 	</Grid>

@@ -12,7 +12,7 @@ namespace MyTherapy
 	[MetaData("android.appwidget.provider", Resource = "@xml/appwidgetprovider")]
 	public class AppWidget : AppWidgetProvider
 	{
-		private TherapyDatabase therapyDatabase = TherapyDatabase.Instance;
+		private AppManager appManager = new AppManager();
 		private static string AnnouncementClick = "AnnouncementClickTag";
 
 		/// <summary>
@@ -38,7 +38,7 @@ namespace MyTherapy
 
 		private void SetTextViewText(RemoteViews widgetView)
 		{
-			var therapy = therapyDatabase.GetTodayTherapy();
+			var therapy = appManager.GetTodayTherapy();
 			string therapyString = (therapy!=null) ? therapy.Dose.ToString() : "None";
 			widgetView.SetTextViewText(Resource.Id.textView1, therapyString);
 			widgetView.SetTextViewText(Resource.Id.widgetSmall, string.Format("Last update: {0:H:mm:ss}", DateTime.Now));
@@ -78,11 +78,11 @@ namespace MyTherapy
 				var pm = context.PackageManager;
 				try
 				{
-					var therapy = therapyDatabase.GetTodayTherapy();
+					var therapy = appManager.GetTodayTherapy();
 					if(therapy!=null)
 					{
 						therapy.IsTaken = true;
-						therapyDatabase.UpdateTherapy(therapy);
+						appManager.TakeTherapy(therapy);
 					}
 					
 				}
