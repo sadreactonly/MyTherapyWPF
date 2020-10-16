@@ -28,9 +28,8 @@
 
 		<DataGrid x:Name="dataGrid" ItemsSource="{Binding Appointments, Mode=TwoWay}" SelectedItem="{Binding SelectedItem}" SelectedCellsChanged="dataGrid_SelectedCellsChanged" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="428" Margin="46,181,0,0" VerticalAlignment="Top" Width="235">
 			<DataGrid.Columns >
-				<DataGridTextColumn Header="{x:Static resx:Resources.ID}" Binding="{Binding Id}"></DataGridTextColumn>
-				<DataGridTextColumn Header="{x:Static resx:Resources.INR_HEADER}" Binding="{Binding INR}"></DataGridTextColumn>
 				<DataGridTextColumn Header="{x:Static resx:Resources.DATE}" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.INR_HEADER}" Binding="{Binding INR}"></DataGridTextColumn>
 			</DataGrid.Columns>
 		</DataGrid>
 		<Button x:Name="buttonEdit"   Content= "{x:Static resx:Resources.EDIT}" Command="{Binding EditCommand}" IsEnabled="{Binding EditIsEnabled}" HorizontalAlignment="Left" Margin="126,144,0,0" VerticalAlignment="Top" Width="75"/>

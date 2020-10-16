@@ -32,7 +32,7 @@ namespace MyTherapyWPF.Controls
                 else if (c.Equals('.'))
                     return true;
 
-                else if (Char.IsNumber(c))
+                else if (char.IsNumber(c))
                     return true;
             }
             return false;

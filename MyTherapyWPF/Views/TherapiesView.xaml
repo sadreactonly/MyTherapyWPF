@@ -39,9 +39,8 @@
 		<Label x:Name="label1_Copy" Content="{x:Static resx:Resources.END_DATE}" HorizontalAlignment="Left" Margin="549,39,0,0" VerticalAlignment="Top" Width="102"/>
 		<DataGrid x:Name="dataGrid" IsReadOnly="true" ItemsSource="{Binding Therapies, Mode=TwoWay}" SelectedItem="{Binding SelectedItem}" SelectedCellsChanged="dataGrid_SelectedCellsChanged" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="428" Margin="428,147,0,0" VerticalAlignment="Top" Width="316">
 			<DataGrid.Columns >
-				<DataGridTextColumn Header="{x:Static resx:Resources.ID}"  Binding="{Binding Id}"></DataGridTextColumn>
-				<DataGridTextColumn Header="{x:Static resx:Resources.DOSE}" Binding="{Binding Dose}"></DataGridTextColumn>
 				<DataGridTextColumn Header="{x:Static resx:Resources.DATE}" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.DOSE}" Binding="{Binding Dose}"></DataGridTextColumn>
 				<DataGridTextColumn Header="{x:Static resx:Resources.STATE}" Binding="{Binding IsTaken,Converter={StaticResource IsTakenBoolToStringConverter}}"/>
 			</DataGrid.Columns>
 		</DataGrid>

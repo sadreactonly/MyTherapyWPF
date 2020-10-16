@@ -8,14 +8,14 @@ namespace MyTherapyWPF
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+
 		public MainWindow()
 		{
 			InitializeComponent();
 		}
 
 		private void ButtonClose_Click(object sender, RoutedEventArgs e)
-		{
-			
+		{	
 			Application.Current.Shutdown();
 		}
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)

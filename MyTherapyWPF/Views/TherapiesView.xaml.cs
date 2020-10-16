@@ -1,6 +1,5 @@
 ﻿using MyTherapyWPF.ViewModels;
 using System.Text.RegularExpressions;
-using System.Windows;
 using System.Windows.Controls;
 
 
