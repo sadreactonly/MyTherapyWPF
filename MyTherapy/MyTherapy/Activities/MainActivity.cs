@@ -47,7 +47,7 @@ namespace MyTherapy
 
             takeTherapyButton.Click += TakeTherapyButton_Click;
 
-            appManager = new AppManager();
+            appManager = new AppManager(this);
 			appManager.TherapyTaken += AppManager_TherapyTaken;       
         }
 

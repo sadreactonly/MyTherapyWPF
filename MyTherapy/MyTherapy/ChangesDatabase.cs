@@ -25,7 +25,7 @@ namespace MyTherapy
 		/// <returns></returns>
 		public SQLiteConnection GetConnection()
 		{
-			var sqliteFilename = "ChangesDatabase.db3";
+			var sqliteFilename = "ChangeDatabase.db3";
 			IFolder folder = FileSystem.Current.LocalStorage;
 			string path = PortablePath.Combine(folder.Path, sqliteFilename);
 			var sqLiteConnection = new SQLiteConnection(path);

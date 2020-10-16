@@ -4,8 +4,8 @@
     android:layout_width="match_parent"  
     android:layout_height="match_parent">  
   	<android.support.design.card.MaterialCardView
-		android:minWidth="25px"
-		android:minHeight="25px"
+		android:minWidth="@dimen/min_dim"
+		android:minHeight="@dimen/min_dim"
 		android:layout_margin="25px"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -23,35 +23,35 @@
             android:id="@+id/btnAdd"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="Add"  
+            android:text="@string/add"  
             android:layout_weight="1"/>  
         <Button  
             android:id="@+id/btnEdit"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="Update"  
+            android:text="@string/update"  
             android:enabled="false"
             android:layout_weight="1"/>  
         <Button  
             android:id="@+id/btnRemove"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="Remove" 
+            android:text="@string/remove" 
             android:enabled="false"
             android:layout_weight="1"/>  
     </LinearLayout>  
     </android.support.design.card.MaterialCardView>
 	
     <android.support.design.card.MaterialCardView
-		android:minWidth="25px"
-		android:minHeight="25px"
+		android:minWidth="@dimen/min_dim"
+		android:minHeight="@dimen/min_dim"
 		android:layout_margin="25px"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/cardView2">
         <ListView  
-		android:minWidth="25px"  
-		android:minHeight="50px"  
+		android:minWidth="@dimen/min_dim" 
+		android:minHeight="@dimen/min_dim"  
 		android:layout_width="match_parent"  
 		android:layout_height="wrap_content"  
 		android:id="@+id/listView"/>  
@@ -65,19 +65,19 @@
             android:id="@+id/startDateButton"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="Set start date"  
+            android:text="@string/set_start"  
             android:layout_weight="1"/>  
         <Button  
             android:id="@+id/EndDateButton"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="Set end date"  
+            android:text="@string/set_end" 
             android:layout_weight="1"/> 
         <Button  
             android:id="@+id/saveSchemaButton"  
             android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:text="Save"  
+            android:text="@string/save"   
             android:layout_weight="1"/>  
     </LinearLayout>
 </android.support.design.card.MaterialCardView>

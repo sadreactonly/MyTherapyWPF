@@ -28,7 +28,7 @@ namespace MyTherapy.Activities
 
 			listView = FindViewById<ListView>(Resource.Id.mainlistview);
 			listView.ItemLongClick += ListView_ItemLongClick;
-            appManager = new AppManager();
+            appManager = new AppManager(this);
 		}
 
 		protected override void OnResume()

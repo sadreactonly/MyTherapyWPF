@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -51,13 +50,12 @@ namespace MyTherapy
 			spinner = FindViewById<Spinner>(Resource.Id.spinner1);
 
 			spinner.ItemSelected += Spinner_ItemSelected;
-			//ArrayAdapter adapterSpinner = ArrayAdapter.CreateFromResource(this, Resource.Array.therapy_dosage_array, Android.Resource.Layout.SimpleSpinnerItem);
 			var adapterSpinner = new ArrayAdapter<double>(this, Android.Resource.Layout.SimpleSpinnerItem,
 				new double[9] {0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2});
 			adapterSpinner.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			spinner.Adapter = adapterSpinner;
 
-			appManager = new AppManager();
+			appManager = new AppManager(this);
 
 		}
 		private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e) => addButton.Enabled = true;

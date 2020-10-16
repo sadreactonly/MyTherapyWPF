@@ -4,16 +4,16 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 	<android.support.design.card.MaterialCardView
-		android:minWidth="25px"
-		android:minHeight="25px"
+		android:minWidth="@dimen/min_dim"
+		android:minHeight="@dimen/min_dim"
 		android:layout_margin="25px"
 		android:layout_width="match_parent"
 		android:layout_height="100dp"
 		android:id="@+id/materialCardView3" >
 		<LinearLayout
 			android:orientation="horizontal"
-			android:minWidth="25px"
-			android:minHeight="25px"
+			android:minWidth="@dimen/min_dim"
+			android:minHeight="@dimen/min_dim"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:id="@+id/linearLayout2" >
@@ -26,7 +26,7 @@
 				android:layout_height="match_parent"
 				android:id="@+id/textView4" />
 			<TextView
-				android:text="2.56"
+				android:text="@string/not_set"
 				android:layout_weight="1"
 				android:gravity="center"
 				android:textAppearance="?android:attr/textAppearanceMedium"
@@ -37,16 +37,16 @@
 	</android.support.design.card.MaterialCardView>
 
 		<android.support.design.card.MaterialCardView
-		android:minWidth="25px"
-		android:minHeight="25px"
+		android:minWidth="@dimen/min_dim"
+		android:minHeight="@dimen/min_dim"
 		android:layout_margin="25px"
 		android:layout_width="match_parent"
 		android:layout_height="100dp"
 		android:id="@+id/materialCardView4" >
 		<LinearLayout
 			android:orientation="horizontal"
-			android:minWidth="25px"
-			android:minHeight="25px"
+			android:minWidth="@dimen/min_dim"
+			android:minHeight="@dimen/min_dim"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:id="@+id/linearLayout3" >
@@ -59,7 +59,7 @@
 				android:layout_height="match_parent"
 				android:id="@+id/textView5" />
 			<TextView
-				android:text="12.10.2020."
+				android:text="@string/not_set"
 				android:layout_weight="1"
 				android:gravity="center"
 				android:textAppearance="?android:attr/textAppearanceMedium"

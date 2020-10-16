@@ -2,14 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Common.Models;
 using MyAppointment;
 
@@ -20,11 +13,20 @@ namespace MyTherapy
 		private ChangesDatabase changesDatabase = ChangesDatabase.Instance;
 		private DoctorAppointmentDatabase appointmentDatabase = DoctorAppointmentDatabase.Instance;
 		private TherapyDatabase therapyDatabase = TherapyDatabase.Instance;
-
+		private Context appContext;
 
 		public event EventHandler TherapyTaken;
 
-		
+		public AppManager()
+		{
+			
+		}
+
+		public AppManager(Context context)
+		{
+			appContext = context;
+		}
+
 		public void AddAppointmentChange(AppointmentChanges appointmentChanges)
 		{
 			changesDatabase.AddAppointmentChange(appointmentChanges);
@@ -44,7 +46,6 @@ namespace MyTherapy
 		{
 			return changesDatabase.GetTherapyChanges();
 		}
-
 
 		public void AddAppointments(DoctorAppointment appointments)
 		{
@@ -81,9 +82,10 @@ namespace MyTherapy
 
 		internal void DeleteTherapy(DailyTherapy item)
 		{
-			var x = (DailyTherapy)item.Clone();
+			DailyTherapy clonedObject = item.CloneObject() as DailyTherapy;
+
+			AddTherapyChange(new TherapyChanges(Operation.Delete, clonedObject.Guid));
 			therapyDatabase.DeleteTherapy(item);
-			AddTherapyChange(new TherapyChanges(Operation.Delete, x.Guid));
 		}
 
 		public DailyTherapy GetTodayTherapy()
@@ -105,10 +107,20 @@ namespace MyTherapy
 
 		internal void SetAllData(out string lastInrText, out string nextAppointmentText, out string todayTherapyTextText, out bool takeTherapyButtonEnabled)
 		{
-			lastInrText = appointmentDatabase.GetLastAppointment().INR.ToString();
-			nextAppointmentText = appointmentDatabase.GetNextAppointment().Date.ToShortDateString();
+			var lastInr = appointmentDatabase.GetLastAppointment().INR;
+			if (lastInr != null)
+				lastInrText = lastInr.ToString();
+			else
+				lastInrText = appContext.Resources.GetString(Resource.String.not_set);
+
+			var nextApp = appointmentDatabase.GetNextAppointment().Date;
+			if(nextApp.Equals(DateTime.MinValue))
+				nextAppointmentText = appContext.Resources.GetString(Resource.String.not_set);
+			else
+			nextAppointmentText = nextApp.ToShortDateString();
+
 			var todayTherapy = GetTodayTherapy();
-			todayTherapyTextText = todayTherapy !=null ? todayTherapy.Dose.ToString(CultureInfo.InvariantCulture):"None";
+			todayTherapyTextText = todayTherapy !=null ? todayTherapy.Dose.ToString(CultureInfo.InvariantCulture): appContext.Resources.GetString(Resource.String.not_set);
 			takeTherapyButtonEnabled = todayTherapy != null && todayTherapy.IsTaken;
 		}
 

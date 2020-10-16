@@ -2,11 +2,14 @@
 using SQLite;
 using System;
 using System.ComponentModel;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Common.Models
 {
 	[Table("DailyTherapy")]
-	public class DailyTherapy : INotifyPropertyChanged
+	[Serializable]
+	public class DailyTherapy : INotifyPropertyChanged, ICloneable
 	{
 		private double dose;
 		private DateTime date;
@@ -60,17 +63,31 @@ namespace Common.Models
 			}
 		}
 
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
 		public object Clone()
 		{
-			return new DailyTherapy()
+			using (MemoryStream stream = new MemoryStream())
 			{
-				Id = this.Id,
-				Guid = this.Guid,
-				IsTaken = this.IsTaken
-				
-			};
+				if (this.GetType().IsSerializable)
+				{
+
+					BinaryFormatter formatter = new BinaryFormatter();
+
+					formatter.Serialize(stream, this);
+
+					stream.Position = 0;
+
+					return formatter.Deserialize(stream);
+
+				}
+
+				return null;
+
+			}
 		}
-		public event PropertyChangedEventHandler PropertyChanged;
+
 		private void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

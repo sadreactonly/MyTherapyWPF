@@ -7,16 +7,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main">
     <ScrollView
-        android:minWidth="25px"
-        android:minHeight="25px"
+        android:minWidth="@dimen/min_dim"
+        android:minHeight="@dimen/min_dim"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:id="@+id/scrollView1" >
         <LinearLayout
 			android:orientation="vertical"
-            android:minWidth="25px"
-            android:minHeight="25px"
+            android:minWidth="@dimen/min_dim"
+            android:minHeight="@dimen/min_dim"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/relativeLayout1">

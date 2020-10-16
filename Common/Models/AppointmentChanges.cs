@@ -16,7 +16,7 @@ namespace Common.Models
 		[JsonProperty(PropertyName = "operation")]
 		public Operation Operation { get; set; }
 
-		[JsonIgnore]
+		[JsonProperty(PropertyName = "therapyGuid")]
 		public Guid TherapyGuid { get; set; }
 
 		[JsonProperty(PropertyName = "therapy")]

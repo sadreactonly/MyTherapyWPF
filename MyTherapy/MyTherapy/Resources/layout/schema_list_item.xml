@@ -11,7 +11,7 @@
        >
         <TextView
          android:id="@+id/Text1"
-         android:text ="0"
+         android:text ="@string/not_set"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:textSize="20dip"
@@ -20,7 +20,7 @@
          />
         <TextView
          android:id="@+id/Text2"
-         android:text ="0"
+         android:text ="@string/not_set"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:textSize="20dip"
@@ -29,7 +29,7 @@
          />
         <TextView
          android:id="@+id/Text3"
-         android:text ="Not Taken"
+         android:text ="@string/not_set"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:textSize="20dip"
