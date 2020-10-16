@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.ComponentModel;
 using Common.Models;
-using System.Collections.ObjectModel;
 using MyTherapyWPF.TcpServer;
 
 namespace MyTherapyWPF.ViewModels
@@ -86,8 +85,6 @@ namespace MyTherapyWPF.ViewModels
 
 		private void TherapiesReceived(List<TherapyChanges> therapyChanges)
 		{
-			var x = therapyChanges;
-
 			foreach(var tmp in therapyChanges)
 			{
 				switch (tmp.Operation)
