@@ -93,6 +93,7 @@ namespace MyTherapyWPF
 
 			db.Therapies.Remove(dbTherapy);
 			db.SaveChanges();
+			DbUpdatedEvent?.Invoke();
 		}
 		#endregion
 

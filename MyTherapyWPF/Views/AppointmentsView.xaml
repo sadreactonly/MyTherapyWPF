@@ -22,19 +22,19 @@
 	</UserControl.Resources>
 	<Grid Background="#FFE5E5E5">
 		<DatePicker x:Name="startDatePicker" SelectedDate="{Binding StartDate}" HorizontalAlignment="Left" Margin="46,100,0,0" VerticalAlignment="Top" Width="128" Height="32"/>
-		<Button x:Name="button1" Content="Add" Command="{Binding AddCommand}" HorizontalAlignment="Left" Margin="46,144,0,0" VerticalAlignment="Top" Width="75" Height="32"/>
+		<Button x:Name="button1" Content="{x:Static resx:Resources.ADD}" Command="{Binding AddCommand}" HorizontalAlignment="Left" Margin="46,144,0,0" VerticalAlignment="Top" Width="75" Height="32"/>
 		<Label x:Name="label1"  Content="{x:Static resx:Resources.START_DATE}" HorizontalAlignment="Left" Margin="46,81,0,0" VerticalAlignment="Top" Width="102"/>
 		<TextBox x:Name="textBox" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" Text="{Binding INR, Mode=TwoWay}" HorizontalAlignment="Left" Height="32" Margin="206,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="75"/>
 
 		<DataGrid x:Name="dataGrid" ItemsSource="{Binding Appointments, Mode=TwoWay}" SelectedItem="{Binding SelectedItem}" SelectedCellsChanged="dataGrid_SelectedCellsChanged" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="428" Margin="46,181,0,0" VerticalAlignment="Top" Width="235">
 			<DataGrid.Columns >
-				<DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
-				<DataGridTextColumn Header="INR" Binding="{Binding INR}"></DataGridTextColumn>
-				<DataGridTextColumn Header="Date" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.ID}" Binding="{Binding Id}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.INR_HEADER}" Binding="{Binding INR}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.DATE}" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
 			</DataGrid.Columns>
 		</DataGrid>
-		<Button x:Name="buttonEdit" Content="Edit" Command="{Binding EditCommand}" IsEnabled="{Binding EditIsEnabled}" HorizontalAlignment="Left" Margin="126,144,0,0" VerticalAlignment="Top" Width="75"/>
-		<Button x:Name="buttonDelete" Content="Delete" Command="{Binding DeleteCommand}" IsEnabled="{Binding DeleteIsEnabled}" HorizontalAlignment="Left" Margin="206,144,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonEdit"   Content= "{x:Static resx:Resources.EDIT}" Command="{Binding EditCommand}" IsEnabled="{Binding EditIsEnabled}" HorizontalAlignment="Left" Margin="126,144,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonDelete" Content="{x:Static resx:Resources.DELETE}" Command="{Binding DeleteCommand}" IsEnabled="{Binding DeleteIsEnabled}" HorizontalAlignment="Left" Margin="206,144,0,0" VerticalAlignment="Top" Width="75"/>
 		<Label  x:Name="label1_Copy"  Content="{x:Static resx:Resources.INR}" HorizontalAlignment="Left" Margin="206,81,0,0" VerticalAlignment="Top" Width="75"/>
 
 	</Grid>

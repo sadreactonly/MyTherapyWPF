@@ -120,14 +120,26 @@
   <data name="ADD" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="CREATE_SCHEMATIC" xml:space="preserve">
     <value>Create schematic for therapy:</value>
   </data>
   <data name="DAILY_THERAPY_DOSAGE" xml:space="preserve">
     <value>Today's therapy dosage:</value>
   </data>
+  <data name="DATE" xml:space="preserve">
+    <value>DATE</value>
+  </data>
   <data name="DELETE" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="DOSE" xml:space="preserve">
+    <value>DOSE</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="END_DATE" xml:space="preserve">
     <value>End date:</value>
@@ -135,13 +147,40 @@
   <data name="GENERATE" xml:space="preserve">
     <value>Generate</value>
   </data>
+  <data name="GENERATE_XLS" xml:space="preserve">
+    <value>Generate .xls</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
   <data name="INR" xml:space="preserve">
     <value>INR:</value>
+  </data>
+  <data name="INR_HEADER" xml:space="preserve">
+    <value>INR</value>
+  </data>
+  <data name="IS_TAKEN" xml:space="preserve">
+    <value>Is taken?</value>
   </data>
   <data name="NEXT_APPOINTMENT" xml:space="preserve">
     <value>Next appointment:</value>
   </data>
   <data name="START_DATE" xml:space="preserve">
     <value>Start date:</value>
+  </data>
+  <data name="START_SERVICE" xml:space="preserve">
+    <value>Start service</value>
+  </data>
+  <data name="STATE" xml:space="preserve">
+    <value>STATE</value>
+  </data>
+  <data name="STOP_SERVICE" xml:space="preserve">
+    <value>Stop service</value>
+  </data>
+  <data name="TAKE" xml:space="preserve">
+    <value>Take</value>
+  </data>
+  <data name="UPDATE" xml:space="preserve">
+    <value>Update</value>
   </data>
 </root>

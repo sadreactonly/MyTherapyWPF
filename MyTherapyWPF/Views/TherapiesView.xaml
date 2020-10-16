@@ -34,20 +34,20 @@
 				 />
 		<DatePicker x:Name="startDatePicker" SelectedDate="{Binding StartDate}" HorizontalAlignment="Left" Margin="428,65,0,0" VerticalAlignment="Top" Width="75"/>
 		<DatePicker x:Name="endDatePicker" SelectedDate="{Binding EndDate}" HorizontalAlignment="Left" Margin="549,65,0,0" VerticalAlignment="Top" Width="75"/>
-		<Button x:Name="button1" Content="Generate" Command="{Binding GenerateCommand}" HorizontalAlignment="Left" Margin="651,56,0,0" VerticalAlignment="Top" Width="91" Height="32"/>
+		<Button x:Name="button1" Content="{x:Static resx:Resources.GENERATE}" Command="{Binding GenerateCommand}" HorizontalAlignment="Left" Margin="651,56,0,0" VerticalAlignment="Top" Width="91" Height="32"/>
 		<Label x:Name="label1"  Content="{x:Static resx:Resources.START_DATE}" HorizontalAlignment="Left" Margin="428,39,0,0" VerticalAlignment="Top" Width="102"/>
 		<Label x:Name="label1_Copy" Content="{x:Static resx:Resources.END_DATE}" HorizontalAlignment="Left" Margin="549,39,0,0" VerticalAlignment="Top" Width="102"/>
 		<DataGrid x:Name="dataGrid" IsReadOnly="true" ItemsSource="{Binding Therapies, Mode=TwoWay}" SelectedItem="{Binding SelectedItem}" SelectedCellsChanged="dataGrid_SelectedCellsChanged" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="428" Margin="428,147,0,0" VerticalAlignment="Top" Width="316">
 			<DataGrid.Columns >
-				<DataGridTextColumn Header="ID"  Binding="{Binding Id}"></DataGridTextColumn>
-				<DataGridTextColumn Header="Dose" Binding="{Binding Dose}"></DataGridTextColumn>
-				<DataGridTextColumn Header="Date" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
-				<DataGridTextColumn Header="State" Binding="{Binding IsTaken,Converter={StaticResource IsTakenBoolToStringConverter}}"/>
+				<DataGridTextColumn Header="{x:Static resx:Resources.ID}"  Binding="{Binding Id}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.DOSE}" Binding="{Binding Dose}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.DATE}" Binding="{Binding Date, Converter = {StaticResource DateTimeToDateConverter}}"></DataGridTextColumn>
+				<DataGridTextColumn Header="{x:Static resx:Resources.STATE}" Binding="{Binding IsTaken,Converter={StaticResource IsTakenBoolToStringConverter}}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 
-		<Button x:Name="buttonEdit" Content="Edit" Command="{Binding EditCommand}" IsEnabled="{Binding EditIsEnabled}" HorizontalAlignment="Left" Margin="428,110,0,0" VerticalAlignment="Top" Width="75"/>
-		<Button x:Name="buttonDelete" Content="Delete" Command="{Binding DeleteCommand}" IsEnabled="{Binding DeleteIsEnabled}" HorizontalAlignment="Left" Margin="508,110,0,0" VerticalAlignment="Top" Width="75"/>
-		<Button x:Name="buttonTake" Content="Take" Command="{Binding TakeCommand}" IsEnabled="{Binding TakeIsEnabled}" HorizontalAlignment="Left" Margin="588,110,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonEdit" Content="{x:Static resx:Resources.EDIT}" Command="{Binding EditCommand}" IsEnabled="{Binding EditIsEnabled}" HorizontalAlignment="Left" Margin="428,110,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonDelete" Content="{x:Static resx:Resources.DELETE}" Command="{Binding DeleteCommand}" IsEnabled="{Binding DeleteIsEnabled}" HorizontalAlignment="Left" Margin="508,110,0,0" VerticalAlignment="Top" Width="75"/>
+		<Button x:Name="buttonTake" Content="{x:Static resx:Resources.TAKE}" Command="{Binding TakeCommand}" IsEnabled="{Binding TakeIsEnabled}" HorizontalAlignment="Left" Margin="588,110,0,0" VerticalAlignment="Top" Width="75"/>
 	</Grid>
 </UserControl>

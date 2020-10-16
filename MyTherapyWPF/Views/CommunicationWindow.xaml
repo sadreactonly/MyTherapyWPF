@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:converter="clr-namespace:MyTherapyWPF.Converters"
+			 xmlns:resx="clr-namespace:MyTherapyWPF.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 	<UserControl.Resources>
@@ -12,9 +13,9 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid Background="#FFE5E5E5">
-		<Button x:Name="buttonStartService" IsEnabled="{Binding IsStartButtonEnabled}" Content="Start service" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Width="116" Command="{Binding StartServiceCommand}"/>
+		<Button x:Name="buttonStartService" IsEnabled="{Binding IsStartButtonEnabled}" Content="{x:Static resx:Resources.START_SERVICE}" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Width="116" Command="{Binding StartServiceCommand}"/>
 		<Label x:Name="labelServiceState" Content="{Binding IsStarted, Converter={StaticResource ServerConnectionBoolToStringConverter}, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Height="43" Width="277"/>
-		<Button x:Name="button" Content="Stop service" IsEnabled="{Binding IsStopButtonEnabled}"  Command="{Binding StopServiceCommand}" HorizontalAlignment="Left" Margin="131,75,0,0" VerticalAlignment="Top" Width="116"/>
-		<Button x:Name="button1" Content="Generate .xls" Command="{Binding GenerateExcelTableCommand}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="116"/>
+		<Button x:Name="button" Content="{x:Static resx:Resources.STOP_SERVICE}" IsEnabled="{Binding IsStopButtonEnabled}"  Command="{Binding StopServiceCommand}" HorizontalAlignment="Left" Margin="131,75,0,0" VerticalAlignment="Top" Width="116"/>
+		<Button x:Name="button1" Content="{x:Static resx:Resources.GENERATE_XLS}" Command="{Binding GenerateExcelTableCommand}" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Width="116"/>
 	</Grid>
 </UserControl>

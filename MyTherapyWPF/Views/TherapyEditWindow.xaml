@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyTherapyWPF.Views"
+		xmlns:resx="clr-namespace:MyTherapyWPF.Properties"
 		     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -17,12 +18,12 @@
 	<materialDesign:Card >
 		<Grid>
 			<Grid HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="250" Background="#FF673AB7" MouseDown="Window_MouseDown">
-				<Button x:Name="ButtonClose" Content="Close" Click="ButtonClose_Click"  HorizontalAlignment="Left" Margin="165,12,0,0" VerticalAlignment="Top" Width="75"/>
+				<Button x:Name="ButtonClose" Content="{x:Static resx:Resources.CLOSE}" Click="ButtonClose_Click"  HorizontalAlignment="Left" Margin="165,12,0,0" VerticalAlignment="Top" Width="75"/>
 			</Grid>
 			<DatePicker x:Name="endDatePicker" SelectedDate="{Binding Date}" Height="40" Margin="10,80,10,230" />
 			<TextBox x:Name="textBox" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" Text="{Binding Dose, Mode=TwoWay}" TextWrapping="Wrap" Margin="10,152,10,158"/>
-			<Button x:Name="button1" Content="Edit" Command="{Binding UpdateCommand}" Height="Auto" Margin="85,268,76,36"/>
-			<CheckBox x:Name="checkBox" Content="Is taken?" IsChecked="{Binding IsTaken}" HorizontalAlignment="Left" Margin="159,209,0,0" VerticalAlignment="Top" Height="38" Width="81"/>
+			<Button x:Name="button1" Content="{x:Static resx:Resources.EDIT}" Command="{Binding UpdateCommand}" Height="Auto" Margin="85,268,76,36"/>
+			<CheckBox x:Name="checkBox" Content="{x:Static resx:Resources.IS_TAKEN}" IsChecked="{Binding IsTaken}" HorizontalAlignment="Left" Margin="159,209,0,0" VerticalAlignment="Top" Height="38" Width="81"/>
 		</Grid>
 	</materialDesign:Card>
 </Window>

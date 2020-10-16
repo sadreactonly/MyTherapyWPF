@@ -70,6 +70,15 @@ namespace MyTherapyWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CLOSE {
+            get {
+                return ResourceManager.GetString("CLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create schematic for therapy:.
         /// </summary>
         public static string CREATE_SCHEMATIC {
@@ -88,11 +97,38 @@ namespace MyTherapyWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DATE.
+        /// </summary>
+        public static string DATE {
+            get {
+                return ResourceManager.GetString("DATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string DELETE {
             get {
                 return ResourceManager.GetString("DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DOSE.
+        /// </summary>
+        public static string DOSE {
+            get {
+                return ResourceManager.GetString("DOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string EDIT {
+            get {
+                return ResourceManager.GetString("EDIT", resourceCulture);
             }
         }
         
@@ -115,11 +151,47 @@ namespace MyTherapyWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate .xls.
+        /// </summary>
+        public static string GENERATE_XLS {
+            get {
+                return ResourceManager.GetString("GENERATE_XLS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string ID {
+            get {
+                return ResourceManager.GetString("ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INR:.
         /// </summary>
         public static string INR {
             get {
                 return ResourceManager.GetString("INR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INR.
+        /// </summary>
+        public static string INR_HEADER {
+            get {
+                return ResourceManager.GetString("INR_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is taken?.
+        /// </summary>
+        public static string IS_TAKEN {
+            get {
+                return ResourceManager.GetString("IS_TAKEN", resourceCulture);
             }
         }
         
@@ -138,6 +210,51 @@ namespace MyTherapyWPF.Properties {
         public static string START_DATE {
             get {
                 return ResourceManager.GetString("START_DATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start service.
+        /// </summary>
+        public static string START_SERVICE {
+            get {
+                return ResourceManager.GetString("START_SERVICE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to STATE.
+        /// </summary>
+        public static string STATE {
+            get {
+                return ResourceManager.GetString("STATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop service.
+        /// </summary>
+        public static string STOP_SERVICE {
+            get {
+                return ResourceManager.GetString("STOP_SERVICE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take.
+        /// </summary>
+        public static string TAKE {
+            get {
+                return ResourceManager.GetString("TAKE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string UPDATE {
+            get {
+                return ResourceManager.GetString("UPDATE", resourceCulture);
             }
         }
     }

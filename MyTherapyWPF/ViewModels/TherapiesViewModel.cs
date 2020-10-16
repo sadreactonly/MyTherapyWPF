@@ -149,7 +149,6 @@ namespace MyTherapyWPF.ViewModels
 			DatabaseManager.DeleteTherapy(SelectedItem);
 			Therapies.Remove(SelectedItem);
 
-			//if (Therapies.Count == 0)
 			DeleteIsEnabled = false;
 			EditIsEnabled = false;
 		}
