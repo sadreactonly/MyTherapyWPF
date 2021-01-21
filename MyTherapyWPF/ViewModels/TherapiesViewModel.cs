@@ -172,26 +172,19 @@ namespace MyTherapyWPF.ViewModels
 		/// </summary>
 		private void CreateScheme()
 		{
-			List<DateTime> dates = new List<DateTime>();
-			for (DateTime date = StartDate; date <= EndDate; date = date.AddDays(1))
-				dates.Add(date);
 
-			int x = dates.Count / Schematic.Count + 1;
-
-			var newList = new List<decimal>();
-
-			for (int i = 0; i < x; i++)
+			int i = 0;
+			for (DateTime date = StartDate; date <= EndDate; date = date.AddDays(1), i++)
 			{
-				newList.AddRange(Schematic);
-			}
+				if (i == Schematic.Count)
+				{
+					i = 0;
+				}
 
-			for (int i = 0; i < dates.Count; i++)
-			{
-				var therapy = new DailyTherapy() { Date = dates[i], Dose = newList[i] };
+				var therapy = new DailyTherapy() { Guid = Guid.NewGuid(), Date = date, Dose = Schematic[i] };
 				Therapies.Add(therapy);
 			}
-
-
+			
 			DatabaseManager.AddTherapies(Therapies);
 		}
 
